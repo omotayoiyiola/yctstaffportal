@@ -1,7 +1,7 @@
 # yctstaffportal
 Yabatech staff portal 
 
-//FRONTEND PAGES
+//FRONTEND WEB PAGES
 Login
 Forgot password
 Reset Password
@@ -42,7 +42,6 @@ Picture gallery
 Social media addresses
 
 SUPPORT Contact ICT
-
 
 
 
