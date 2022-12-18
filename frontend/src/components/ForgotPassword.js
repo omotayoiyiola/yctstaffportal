@@ -1,5 +1,16 @@
 import React from "react";
-import { Card, Box, Typography, TextField, Button, Link } from "@mui/material";
+import {
+  Card,
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Link,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import "./login.css";
 const Login = () => {
   return (
@@ -35,10 +46,10 @@ const Login = () => {
                 marginTop: "50px",
               }}
             >
-              LOGIN
+              RECOVER YOUR PASSWORD
             </Typography>
             <Typography sx={{ fontSize: "1.3rem", marginTop: "20px" }}>
-              Please login with your staff number and password
+              Please fill the form below appropriately to renew your password
             </Typography>
           </Box>
           <Box
@@ -54,13 +65,34 @@ const Login = () => {
               placeholder="STAFF NUMBER e.g AD/R/S.1234"
               sx={{ width: "750px", marginBottom: "12px" }}
             />
-            <TextField placeholder="PASSWORD" sx={{ width: "750px" }} />
+            <Box sx={{ minWidth: 120, marginBottom: "10px" }}>
+              <FormControl sx={{ width: "750px" }}>
+                <InputLabel id="demo-simple-select-label">
+                  Click to select your security question
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  label="Age"
+                >
+                  <MenuItem>Favouite color</MenuItem>
+                  <MenuItem>Favourite Food</MenuItem>
+                  <MenuItem>Favourite pet name</MenuItem>
+                  <MenuItem>Fathers middle name</MenuItem>
+                  <MenuItem>Mothers middle name</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+            <TextField
+              placeholder="Answer to the security question"
+              sx={{ width: "750px" }}
+            />
             <Button
               variant="contained"
               size="medium"
               sx={{ marginTop: "6px", background: "green", height: "45px" }}
             >
-              Login
+              Confirm account
             </Button>
           </Box>
           <Box
@@ -72,9 +104,9 @@ const Login = () => {
               marginTop: "10px",
             }}
           >
-            <Link href="/forgotPassword" style={{ textDecoration: "none" }}>
+            <Link href="/" style={{ textDecoration: "none" }}>
               <Typography sx={{ fontSize: "1.2rem" }}>
-                Forgot password? click here
+                Back home? click here
               </Typography>
             </Link>
             <Box sx={{ display: "flex", flexDirection: "row" }}>
