@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Box, Typography, TextField, Button, Link } from "@mui/material";
 import "./login.css";
-const Login = () => {
+const Login = ({ display }) => {
   return (
     <div className="login_container">
       <Box

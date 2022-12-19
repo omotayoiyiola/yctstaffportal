@@ -1,6 +1,5 @@
-import { Box } from "@mui/material";
+import {  Box, Card, Typography } from "@mui/material";
 import React from "react";
-import "./staffhome.css";
 const StaffHome = () => {
   return (
     <Box
@@ -8,9 +7,31 @@ const StaffHome = () => {
         backgroundColor: "grey",
         flex: 3,
         height: "auto",
+        position: "relative",
       }}
     >
-      staffhome
+      <Card
+        sx={{
+          height: "350px",
+          width: "950px",
+          alignItems: "center",
+          position: "absolute",
+          top: "30%",
+          left: "5%",
+        }}
+      >
+        <Typography
+          variant="h3"
+          sx={{
+            justifyContent: "center",
+            alignItems: "center",
+            textAlign: "center",
+            marginTop: "60px",
+          }}
+        >
+          WELCOME BACK OMOTAYO IYIOLA
+        </Typography>
+      </Card>
     </Box>
   );
 };

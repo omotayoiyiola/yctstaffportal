@@ -35,12 +35,19 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./sidebar.css";
 const Sidebar = () => {
   const drawerMenuItemData = [
     {
       title: "SETTINGS",
-      submenu: [{ title: "Change Password", icon: ChangeCircleOutlined }],
+      submenu: [
+        {
+          title: "Change Password",
+          icon: ChangeCircleOutlined,
+          link: "resetpass",
+        },
+      ],
       icon: Settings,
     },
     {
@@ -172,21 +179,28 @@ const Sidebar = () => {
               <List component="div" disablePadding>
                 {item.submenu.map((sub, index) => {
                   return (
-                    <ListItem>
-                      <ListItemIcon sx={{ color: "black" }}>
-                        <sub.icon />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary={sub.title}
-                        sx={{
-                          color: "white",
-                          fontWeight: "bolder",
-                          justifyContent: "center",
-                          textAlign: "center",
-                          fontFamily: "Unbounded, cursive",
-                        }}
-                      />
-                    </ListItem>
+                    <Link
+                      style={{ textDecoration: "none" }}
+                      to={"/" + sub.link}
+                    >
+                      <ListItem>
+                        <ListItemIcon sx={{ color: "black" }}>
+                          <sub.icon />
+                        </ListItemIcon>
+
+                        <ListItemText
+                          primary={sub.title}
+                          sx={{
+                            color: "white",
+                            fontWeight: "bolder",
+                            justifyContent: "center",
+                            textAlign: "center",
+                            fontFamily: "Unbounded, cursive",
+                            cursor: "pointer",
+                          }}
+                        />
+                      </ListItem>
+                    </Link>
                   );
                 })}
               </List>
