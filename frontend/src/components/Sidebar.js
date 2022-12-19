@@ -166,7 +166,7 @@ const Sidebar = () => {
                 primary={item.title}
                 sx={{ fontFamily: "'Roboto', sans-serif" }}
               />
-              {index === selectedIndex ? <ArrowForwardIos /> : <ExpandMore />}
+              {index === selectedIndex ? <ExpandMore /> : <ArrowForwardIos />}
             </ListItemButton>
             <Collapse in={index === selectedIndex} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
