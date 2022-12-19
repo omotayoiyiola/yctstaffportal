@@ -53,15 +53,23 @@ const Sidebar = () => {
     {
       title: "PROFILE",
       submenu: [
-        { title: "View profile", icon: Preview },
-        { title: "Upload passport", icon: CloudUpload },
-        { title: "Upload signature", icon: Publish },
-        { title: "Edit biodata", icon: Edit },
-        { title: "Edit academic qualification", icon: Create },
-        { title: "Edit professional qualification", icon: Create },
-        { title: "Edit next of kin", icon: Edit },
-        { title: "Edit children", icon: Edit },
-        { title: "Edit spouse", icon: Edit },
+        { title: "View profile", icon: Preview, link: "viewprofile" },
+        { title: "Upload passport", icon: CloudUpload, link: "uploadPass" },
+        { title: "Upload signature", icon: Publish, link: "uploadSignature" },
+        { title: "Edit biodata", icon: Edit, link: "viewprofile" },
+        {
+          title: "Edit academic qualification",
+          icon: Create,
+          link: "viewprofile",
+        },
+        {
+          title: "Edit professional qualification",
+          icon: Create,
+          link: "viewprofile",
+        },
+        { title: "Edit next of kin", icon: Edit, link: "viewprofile" },
+        { title: "Edit children", icon: Edit, link: "viewprofile" },
+        { title: "Edit spouse", icon: Edit, link: "viewprofile" },
       ],
       icon: Person,
     },
@@ -117,10 +125,11 @@ const Sidebar = () => {
   };
   return (
     <Box
+      position="sticky"
       sx={{
         display: { xs: "none", sm: "none", lg: "block" },
         backgroundColor: "green",
-        height: "auto",
+        height: "195vh",
         flex: 1,
       }}
     >
@@ -187,16 +196,16 @@ const Sidebar = () => {
                         <ListItemIcon sx={{ color: "black" }}>
                           <sub.icon />
                         </ListItemIcon>
-
                         <ListItemText
                           primary={sub.title}
                           sx={{
                             color: "white",
                             fontWeight: "bolder",
-                            justifyContent: "center",
                             textAlign: "center",
                             fontFamily: "Unbounded, cursive",
                             cursor: "pointer",
+                            display: "flex",
+                            justifyContent: "flex-start",
                           }}
                         />
                       </ListItem>

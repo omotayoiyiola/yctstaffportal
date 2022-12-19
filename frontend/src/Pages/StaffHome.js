@@ -1,4 +1,4 @@
-import {  Box, Card, Typography } from "@mui/material";
+import { Box, Card, Typography } from "@mui/material";
 import React from "react";
 const StaffHome = () => {
   return (
@@ -16,7 +16,7 @@ const StaffHome = () => {
           width: "950px",
           alignItems: "center",
           position: "absolute",
-          top: "30%",
+          top: "10%",
           left: "5%",
         }}
       >
