@@ -25,7 +25,7 @@ const Login = () => {
           top: "5%",
         }}
       >
-        <Card sx={{ width: "67vw", height: "90vh " }}>
+        <Card sx={{ width: "67vw", height: "auto " }}>
           <Box
             sx={{
               margin: "auto",

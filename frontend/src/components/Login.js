@@ -55,16 +55,15 @@ const Login = () => {
               sx={{ width: "750px", marginBottom: "12px" }}
             />
             <TextField placeholder="PASSWORD" sx={{ width: "750px" }} />
-             <Link href="/dashboard" style={{ textDecoration: "none" }}>
-               <Button
-              variant="contained"
-              size="medium"
-              sx={{ marginTop: "6px", background: "green", height: "45px" }}
-            >
-              Login
-            </Button>
-             </Link>
-          
+            <Link href="/dashboard" style={{ textDecoration: "none" }}>
+              <Button
+                variant="contained"
+                size="medium"
+                sx={{ marginTop: "6px", background: "green", height: "45px" }}
+              >
+                Login
+              </Button>
+            </Link>
           </Box>
           <Box
             sx={{

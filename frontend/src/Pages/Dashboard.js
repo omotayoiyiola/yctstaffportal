@@ -1,10 +1,19 @@
-import React from 'react'
-import Header from '../components/Header'
+import { Box, Stack } from "@mui/material";
+import React from "react";
+import Header from "../components/Header";
+import Sidebar from "../components/Sidebar";
+import StaffHome from "./StaffHome";
 
 const Dashboard = () => {
   return (
-    <Header/>
-  )
-}
+    <Box>
+      <Header />
+      <Stack direction="row">
+        <Sidebar />
+        <StaffHome />
+      </Stack>
+    </Box>
+  );
+};
 
-export default Dashboard
+export default Dashboard;
