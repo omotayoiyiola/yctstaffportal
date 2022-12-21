@@ -9,6 +9,7 @@ import ViewProfile from "./Pages/ViewProfile";
 import UploadPass from "./Pages/UploadPass";
 import UploadSigature from "./Pages/UploadSigature";
 import EditBioData from "./Pages/EditBioData";
+import EditAccountQual from "./Pages/EditAccountQual";
 function App() {
   const user = false;
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/uploadPass" element={<UploadPass />} />
         <Route path="/uploadSignature" element={<UploadSigature />} />
         <Route path="/editbiodata" element={<EditBioData />} />
+        <Route path="/editAcadqualification" element={<EditAccountQual />} />
       </Routes>
     </div>
   );

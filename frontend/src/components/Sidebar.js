@@ -60,7 +60,7 @@ const Sidebar = () => {
         {
           title: "Edit academic qualification",
           icon: Create,
-          link: "viewprofile",
+          link: "editAcadqualification",
         },
         {
           title: "Edit professional qualification",
