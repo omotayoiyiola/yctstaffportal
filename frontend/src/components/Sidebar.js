@@ -56,7 +56,7 @@ const Sidebar = () => {
         { title: "View profile", icon: Preview, link: "viewprofile" },
         { title: "Upload passport", icon: CloudUpload, link: "uploadPass" },
         { title: "Upload signature", icon: Publish, link: "uploadSignature" },
-        { title: "Edit biodata", icon: Edit, link: "viewprofile" },
+        { title: "Edit biodata", icon: Edit, link: "editbiodata" },
         {
           title: "Edit academic qualification",
           icon: Create,

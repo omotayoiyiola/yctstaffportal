@@ -8,6 +8,7 @@ import ResetPassword from "./Pages/ResetPassword";
 import ViewProfile from "./Pages/ViewProfile";
 import UploadPass from "./Pages/UploadPass";
 import UploadSigature from "./Pages/UploadSigature";
+import EditBioData from "./Pages/EditBioData";
 function App() {
   const user = false;
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/viewprofile" element={<ViewProfile />} />
         <Route path="/uploadPass" element={<UploadPass />} />
         <Route path="/uploadSignature" element={<UploadSigature />} />
+        <Route path="/editbiodata" element={<EditBioData />} />
       </Routes>
     </div>
   );
