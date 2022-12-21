@@ -1,19 +1,23 @@
 import { Box, Stack } from "@mui/material";
 import React from "react";
-import EditAccountqual from "../components/EditAccountqual";
+import EditDetailspage from "../components/EditDetailspage";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 
-const EditAccountQual = () => {
+const EditDetailsPage = ({ message, submessage, allowed }) => {
   return (
     <Box>
       <Header />
       <Stack direction="row">
         <Sidebar />
-        <EditAccountqual />
+        <EditDetailspage
+          message={message}
+          submessage={submessage}
+          allowed={allowed}
+        />
       </Stack>
     </Box>
   );
 };
 
-export default EditAccountQual;
+export default EditDetailsPage;

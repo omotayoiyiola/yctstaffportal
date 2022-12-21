@@ -9,7 +9,7 @@ import ViewProfile from "./Pages/ViewProfile";
 import UploadPass from "./Pages/UploadPass";
 import UploadSigature from "./Pages/UploadSigature";
 import EditBioData from "./Pages/EditBioData";
-import EditAccountQual from "./Pages/EditAccountQual";
+import EditDetailsPage from "./Pages/EditDetailsPage";
 function App() {
   const user = false;
   return (
@@ -24,7 +24,56 @@ function App() {
         <Route path="/uploadPass" element={<UploadPass />} />
         <Route path="/uploadSignature" element={<UploadSigature />} />
         <Route path="/editbiodata" element={<EditBioData />} />
-        <Route path="/editAcadqualification" element={<EditAccountQual />} />
+        <Route
+          path="/editAcadqualification"
+          element={
+            <EditDetailsPage
+              allowed="true"
+              message="Academic qualification cannot be edited. Kindly visit the registry if information here is not up-to-date"
+              submessage="Bachelor of Science (Electrical/Electronics Engineering), Master of Science (Electrical Electronics Engineering - Communication Systems Engineering)"
+            />
+          }
+        />
+        <Route
+          path="/editprofqualification"
+          element={
+            <EditDetailsPage
+              allowed="true"
+              message="Edit professional qualification"
+              submessage="Cisco Certified Network Professional CCNP"
+            />
+          }
+        />
+        <Route
+          path="/editnextofkin"
+          element={
+            <EditDetailsPage
+              allowed="false"
+              message="Name, address, phone number and relationship with Next-of-Kin"
+              submessage="Iyiola Omolara Elizabeth, Iyiola Oluwakoremide Samuel"
+            />
+          }
+        />
+        <Route
+          path="/editChildren"
+          element={
+            <EditDetailsPage
+              allowed="false"
+              message="Full name(s) and date of birth of Child(ren). Maximum of 4 children is alowed"
+              submessage="Iyiola Oluwakoremide Samuel April 19, 201"
+            />
+          }
+        />
+        <Route
+          path="/editSpouse"
+          element={
+            <EditDetailsPage
+              allowed="false"
+              message="Full name, email address, phone number and other necessary details of spouse."
+              submessage="Iyiola Omolara Elizabeth"
+            />
+          }
+        />
       </Routes>
     </div>
   );

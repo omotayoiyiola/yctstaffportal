@@ -1,7 +1,8 @@
 import { Box, Typography, Card, TextField } from "@mui/material";
 import React from "react";
 
-const EditAccountqual = () => {
+const EditDetailspage = ({ message, submessage, allowed }) => {
+  console.log(allowed);
   return (
     <Box
       sx={{
@@ -22,19 +23,18 @@ const EditAccountqual = () => {
       >
         <Box sx={{ padding: "15px", background: "green", color: "white" }}>
           <Typography sx={{ fontSize: "1.35rem", fontWeight: "bolder" }}>
-            Academic qualification cannot be edited. Kindly visit the registry
-            if information here is not up-to-date{" "}
+            {message}
           </Typography>
         </Box>
         <Box sx={{ margin: "-12px", padding: "47px" }}>
           <TextField
-            disabled
+            disabled={allowed === "true" ? true : false}
             inputProps={{
               style: {
                 height: "70px",
               },
             }}
-            placeholder="Bachelor of Science (Electrical/Electronics Engineering), Master of Science (Electrical Electronics Engineering - Communication Systems Engineering)"
+            placeholder={submessage}
             sx={{ width: "1005px" }}
           />
         </Box>
@@ -43,4 +43,4 @@ const EditAccountqual = () => {
   );
 };
 
-export default EditAccountqual;
+export default EditDetailspage;
