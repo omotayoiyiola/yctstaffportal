@@ -1,3 +1,4 @@
+import { ArrowBack } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -18,6 +19,13 @@ const UploadSig = () => {
         position: "relative",
       }}
     >
+      <Button
+        startIcon={<ArrowBack />}
+        sx={{ marginTop: "60px", color: "white" }}
+        href="/dashboard"
+      >
+        Back home
+      </Button>
       <Card
         sx={{
           width: "950px",

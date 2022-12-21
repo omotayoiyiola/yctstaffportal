@@ -12,6 +12,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import "./login.css";
+import { ArrowBack } from "@mui/icons-material";
 const Login = () => {
   return (
     <div className="login_container">
@@ -25,6 +26,13 @@ const Login = () => {
           top: "5%",
         }}
       >
+        <Button
+          startIcon={<ArrowBack />}
+          sx={{ marginTop: "60px", color: "white" }}
+          href="/dashboard"
+        >
+          Back home
+        </Button>
         <Card sx={{ width: "67vw", height: "auto " }}>
           <Box
             sx={{

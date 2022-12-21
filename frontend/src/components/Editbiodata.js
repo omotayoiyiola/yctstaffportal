@@ -10,6 +10,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { ArrowBack } from "@mui/icons-material";
 const Editbiodata = () => {
   return (
     <Box
@@ -20,6 +21,13 @@ const Editbiodata = () => {
         position: "relative",
       }}
     >
+      <Button
+        startIcon={<ArrowBack />}
+        sx={{ marginTop: "60px", color: "white" }}
+        href="/dashboard"
+      >
+        Back home
+      </Button>
       <Card
         sx={{
           width: "950px",

@@ -1,4 +1,5 @@
-import { Box, Typography, Card, TextField } from "@mui/material";
+import { ArrowBack } from "@mui/icons-material";
+import { Box, Typography, Card, TextField, Button } from "@mui/material";
 import React from "react";
 
 const EditDetailspage = ({ message, submessage, allowed }) => {
@@ -12,6 +13,13 @@ const EditDetailspage = ({ message, submessage, allowed }) => {
         position: "relative",
       }}
     >
+      <Button
+        startIcon={<ArrowBack />}
+        sx={{ marginTop: "60px", color: "white" }}
+        href="/dashboard"
+      >
+        Back home
+      </Button>
       <Card
         sx={{
           width: "1050px",
