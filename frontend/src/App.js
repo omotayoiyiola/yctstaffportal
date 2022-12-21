@@ -10,6 +10,8 @@ import UploadPass from "./Pages/UploadPass";
 import UploadSigature from "./Pages/UploadSigature";
 import EditBioData from "./Pages/EditBioData";
 import EditDetailsPage from "./Pages/EditDetailsPage";
+import AcademicEdits from "./Pages/AcademicEdits";
+import AcademicPublication from "./Pages/AcademicPublication";
 function App() {
   const user = false;
   return (
@@ -71,6 +73,74 @@ function App() {
               allowed="false"
               message="Full name, email address, phone number and other necessary details of spouse."
               submessage="Iyiola Omolara Elizabeth"
+            />
+          }
+        />
+        <Route
+          path="researchareas"
+          element={
+            <AcademicEdits
+              message="List your areas of research"
+              content="5G"
+              textarea="true"
+              button="false"
+            />
+          }
+        />
+        <Route
+          path="seminars"
+          element={
+            <AcademicEdits
+              message="List the Seminars/Conferences attended"
+              textarea="true"
+              content="seminars at Kano Workshop at sokoto"
+              button="false"
+            />
+          }
+        />
+        <Route
+          path="mypub"
+          textarea="false"
+          element={
+            <AcademicEdits
+              message="Upload Publications"
+              content="View uploaded publications"
+              button="true"
+              last="CV"
+            />
+          }
+        />
+        <Route
+          path="mycv"
+          textarea="false"
+          element={
+            <AcademicEdits
+              message="Upload CV"
+              content="View uploaded CV"
+              button="true"
+              last="CV"
+            />
+          }
+        />
+        <Route
+          path="researchgate"
+          element={
+            <AcademicEdits
+              message="Researchgate profile URL (link)"
+              content="repourl"
+              textarea="true"
+              button="false"
+            />
+          }
+        />
+        <Route
+          path="publications"
+          element={
+            <AcademicPublication
+              message="Researchgate profile URL (link)"
+              content="repourl"
+              textarea="true"
+              button="false"
             />
           }
         />

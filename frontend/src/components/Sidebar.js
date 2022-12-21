@@ -76,12 +76,20 @@ const Sidebar = () => {
     {
       title: "ACADEMIC STAFF",
       submenu: [
-        { title: "Research areas", icon: MenuBook },
-        { title: "Seminars and conferences", icon: CloudUpload },
-        { title: "All publications", icon: LibraryBooks },
-        { title: "Resume/CV", icon: CoPresent },
-        { title: "Upload publications", icon: CloudUpload },
-        { title: "Researchgate profile", icon: Person },
+        { title: "Research areas", icon: MenuBook, link: "researchareas" },
+        {
+          title: "Seminars and conferences",
+          icon: CloudUpload,
+          link: "seminars",
+        },
+        { title: "All publications", icon: LibraryBooks, link: "mypub" },
+        { title: "Resume/CV", icon: CoPresent, link: "mycv" },
+        {
+          title: "Upload publications",
+          icon: CloudUpload,
+          link: "publications",
+        },
+        { title: "Researchgate profile", icon: Person, link: "researchgate" },
       ],
       icon: Person,
     },
