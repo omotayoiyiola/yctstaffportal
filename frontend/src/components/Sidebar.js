@@ -95,7 +95,9 @@ const Sidebar = () => {
     },
     {
       title: "OFFICE EXTENSION",
-      submenu: [{ title: "My extension", icon: MeetingRoom }],
+      submenu: [
+        { title: "My extension", icon: MeetingRoom, link: "myextension" },
+      ],
       icon: MeetingRoom,
     },
     {

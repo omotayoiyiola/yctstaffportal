@@ -12,6 +12,7 @@ import EditBioData from "./Pages/EditBioData";
 import EditDetailsPage from "./Pages/EditDetailsPage";
 import AcademicEdits from "./Pages/AcademicEdits";
 import AcademicPublication from "./Pages/AcademicPublication";
+import Myextension from "./Pages/Myextension";
 function App() {
   const user = false;
   return (
@@ -144,6 +145,7 @@ function App() {
             />
           }
         />
+        <Route path="myextension" element={<Myextension />} />
       </Routes>
     </div>
   );
