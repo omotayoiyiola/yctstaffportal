@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Box, Typography, TextField, Button, Link } from "@mui/material";
 import "./login.css";
-const Login = ({ display }) => {
+const Login = () => {
   return (
     <div className="login_container">
       <Box
@@ -48,13 +48,14 @@ const Login = ({ display }) => {
               display: "flex",
               flexDirection: "column",
               marginTop: "10px",
+              margin: "10px",
             }}
           >
             <TextField
               placeholder="STAFF NUMBER e.g AD/R/S.1234"
-              sx={{ width: "750px", marginBottom: "12px" }}
+              sx={{ width: "100%", marginBottom: "12px" }}
             />
-            <TextField placeholder="PASSWORD" sx={{ width: "750px" }} />
+            <TextField placeholder="PASSWORD" sx={{ width: "100%" }} />
             <Link href="/dashboard" style={{ textDecoration: "none" }}>
               <Button
                 variant="contained"
@@ -72,6 +73,7 @@ const Login = ({ display }) => {
               display: "flex",
               flexDirection: "column",
               marginTop: "10px",
+              width: "100%",
             }}
           >
             <Link href="/forgotPassword" style={{ textDecoration: "none" }}>

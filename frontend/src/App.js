@@ -13,6 +13,7 @@ import EditDetailsPage from "./Pages/EditDetailsPage";
 import AcademicEdits from "./Pages/AcademicEdits";
 import AcademicPublication from "./Pages/AcademicPublication";
 import Myextension from "./Pages/Myextension";
+import FileManagement from "./Pages/FileManagement";
 function App() {
   const user = false;
   return (
@@ -146,6 +147,7 @@ function App() {
           }
         />
         <Route path="myextension" element={<Myextension />} />
+        <Route path="docmgt" element={<FileManagement />} />
       </Routes>
     </div>
   );
