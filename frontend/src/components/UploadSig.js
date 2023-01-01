@@ -7,9 +7,35 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const UploadSig = () => {
+  const [file, setFile] = useState(null);
+  const { user } = useSelector((state) => state.user);
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+    const formdata = new FormData();
+    formdata.append("image", file);
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+    const url = `http://localhost:5000/api/uploadsignature/${user.id}`;
+    axios
+      .put(url, formdata, config)
+      .then((res) => toast.success(res.data.message))
+      .catch((err) => {
+        toast.error(err.response.data.message) ||
+          toast.error("not uploaded successfully");
+      });
+  };
+  const onInputChange = (e) => {
+    setFile(e.target.files[0]);
+  };
   return (
     <Box
       sx={{
@@ -42,35 +68,41 @@ const UploadSig = () => {
           </Typography>
         </Box>
         <Box sx={{ margin: "40px", display: "flex" }}>
-          <Button
-            sx={{
-              fontSize: "0.8rem",
-              width: "200px",
-              height: "50px",
-              marginTop: "9px",
-            }}
-            variant="contained"
-            component="label"
-          >
-            SELECT SIGNATURE IMAGE
-            <input hidden accept="image/*" multiple type="file" />
-          </Button>
           <IconButton
             color="primary"
             aria-label="upload picture"
             component="label"
-          >
-            <input hidden accept="image/*" type="file" />
-            <TextField sx={{ width: "500px" }} />
-          </IconButton>
+          ></IconButton>
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column", margin: "40px" }}>
-          <Button
-            sx={{ width: "100px", marginBottom: "8px" }}
-            variant="contained"
-          >
-            Submit
-          </Button>
+          <form onSubmit={onFormSubmit}>
+            <Button
+              sx={{
+                fontSize: "0.8rem",
+                width: "200px",
+                height: "50px",
+                marginTop: "9px",
+              }}
+              variant="contained"
+              component="label"
+            >
+              SELECT SIGNATURE IMAGE
+              <input
+                hidden
+                accept="image/*"
+                multiple
+                type="file"
+                onChange={onInputChange}
+              />
+            </Button>
+            <TextField
+              sx={{ width: "600px", margin: "20px" }}
+              placeholder={file?.name}
+            />
+            <Button variant="contained" type="submit">
+              upload
+            </Button>
+          </form>
           <img
             style={{ width: "150px" }}
             src="https://staff.yabatech.edu.ng/staffsign/1565326848mysignature.jpg"

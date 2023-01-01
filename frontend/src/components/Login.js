@@ -1,7 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Box, Typography, TextField, Button, Link } from "@mui/material";
 import "./login.css";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { MDBSpinner } from "mdb-react-ui-kit";
+import { loginUser } from "../redux/userSlice";
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [userProfile, setUserProfile] = useState({
+    staffno: "",
+    password: "",
+  });
+  const { user, error, loading, loginStatus } = useSelector(
+    (state) => state.user
+  );
+  console.log(user);
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard");
+    }
+  }, [user, navigate]);
+  const handleLogin = (e) => {
+    e.preventDefault();
+    dispatch(loginUser(userProfile));
+  };
+
   return (
     <div className="login_container">
       <Box
@@ -54,16 +78,49 @@ const Login = () => {
             <TextField
               placeholder="STAFF NUMBER e.g AD/R/S.1234"
               sx={{ width: "100%", marginBottom: "12px" }}
+              onChange={(e) =>
+                setUserProfile({ ...userProfile, staffno: e.target.value })
+              }
             />
-            <TextField placeholder="PASSWORD" sx={{ width: "100%" }} />
+            <TextField
+              placeholder="PASSWORD"
+              sx={{ width: "100%" }}
+              onChange={(e) =>
+                setUserProfile({ ...userProfile, password: e.target.value })
+              }
+            />
             <Link href="/dashboard" style={{ textDecoration: "none" }}>
               <Button
+                onClick={handleLogin}
                 variant="contained"
                 size="medium"
                 sx={{ marginTop: "6px", background: "green", height: "45px" }}
               >
-                Login
+                {loading && <MDBSpinner />} Login
               </Button>
+              {error && (
+                <Typography
+                  sx={{
+                    color: "white",
+                    backgroundColor: "red",
+                    padding: "10px",
+                    marginTop: "5px",
+                  }}
+                >
+                  {error}
+                </Typography>
+              )}
+              {loginStatus === "successful" ? (
+                <Typography
+                  sx={{
+                    color: "white",
+                    backgroundColor: "blue",
+                    padding: "10px",
+                  }}
+                >
+                  Login successful
+                </Typography>
+              ) : null}
             </Link>
           </Box>
           <Box

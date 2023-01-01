@@ -8,10 +8,18 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { ArrowDropDown, Logout, Settings } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../redux/userSlice";
 const Header = () => {
+  const { user } = useSelector((state) => state.user);
+  const nav = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
-
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    nav("/login");
+  };
+  const dispatch = useDispatch();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -21,6 +29,7 @@ const Header = () => {
   };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+
   return (
     <Box>
       <AppBar position="fixed" sx={{ background: "green", height: "60px" }}>
@@ -33,7 +42,7 @@ const Header = () => {
           <Box sx={{ color: "pointer", display: "flex" }}>
             <Avatar
               alt="Remy Sharp"
-              src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+              src={user?.imgg}
               sx={{ width: 40, height: 40 }}
             />
 
@@ -62,7 +71,12 @@ const Header = () => {
               </Box>
               <Box sx={{ display: "flex" }}>
                 <Logout sx={{ marginTop: "15px" }} />
-                <Typography sx={{ p: 2 }}>Logout</Typography>
+                <Typography
+                  onClick={handleLogout}
+                  sx={{ p: 2, cursor: "pointer" }}
+                >
+                  Logout
+                </Typography>
               </Box>
             </Popover>
           </Box>

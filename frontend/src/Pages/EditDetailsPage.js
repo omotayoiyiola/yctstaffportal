@@ -4,7 +4,7 @@ import EditDetailspage from "../components/EditDetailspage";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 
-const EditDetailsPage = ({ message, submessage, allowed }) => {
+const EditDetailsPage = ({ message, submessage, allowed, link }) => {
   return (
     <Box>
       <Header />
@@ -14,6 +14,7 @@ const EditDetailsPage = ({ message, submessage, allowed }) => {
           message={message}
           submessage={submessage}
           allowed={allowed}
+          link={link}
         />
       </Stack>
     </Box>

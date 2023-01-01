@@ -1,15 +1,15 @@
 import { Box, Stack } from "@mui/material";
 import React from "react";
-import Academicpublication from "../components/Academicpublication";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
-const AcademicPublication = ({ message, content, textarea, button, last }) => {
+import AcademicPublication from "../components/AcademicPublication";
+const AcademicPublicationn = ({ message, content, textarea, button, last }) => {
   return (
     <Box>
       <Header />
       <Stack direction="row">
         <Sidebar />
-        <Academicpublication
+        <AcademicPublication
           message={message}
           content={content}
           textarea={textarea}
@@ -21,4 +21,4 @@ const AcademicPublication = ({ message, content, textarea, button, last }) => {
   );
 };
 
-export default AcademicPublication;
+export default AcademicPublicationn;

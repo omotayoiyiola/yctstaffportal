@@ -102,7 +102,7 @@ const Sidebar = () => {
     },
     {
       title: "FILE MANAGEMENT",
-      submenu: [{ title: "My files", icon: FilePresent }],
+      submenu: [{ title: "My files", icon: FilePresent, link: "docmgt" }],
       icon: FileOpen,
     },
     {

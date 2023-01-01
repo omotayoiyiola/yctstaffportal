@@ -10,9 +10,28 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
-
+import { MDBSpinner } from "mdb-react-ui-kit";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { resetUserPassword } from "../redux/userSlice";
 const ResetPass = () => {
+  const { user, error, loading, status } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const [questions, setQuestion] = useState({
+    oldpassword: "",
+    newpassword: "",
+    confirmpassword: "",
+    answer: "",
+    securityquestion: "",
+    id: user?.id,
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(resetUserPassword(questions));
+  };
+
+  console.log(questions);
   return (
     <Box
       sx={{
@@ -32,7 +51,7 @@ const ResetPass = () => {
       <Card
         sx={{
           width: "950px",
-          height: "570px",
+          height: "auto",
           position: "absolute",
           top: "10%",
           left: "5%",
@@ -48,42 +67,110 @@ const ResetPass = () => {
           </Typography>
         </Box>
         <Box sx={{ margin: "20px" }}>
+          <Typography sx={{ fontWeight: "bolder" }}>Old Password</Typography>
+          <TextField
+            placeholder="old password"
+            onChange={(e) =>
+              setQuestion({ ...questions, oldpassword: e.target.value })
+            }
+            sx={{ width: "340px" }}
+          />
+        </Box>
+        <Box sx={{ margin: "20px" }}>
           <Typography sx={{ fontWeight: "bolder" }}>New password</Typography>
-          <TextField placeholder="new password" sx={{ width: "340px" }} />
+          <TextField
+            placeholder="new password"
+            onChange={(e) =>
+              setQuestion({ ...questions, newpassword: e.target.value })
+            }
+            sx={{ width: "340px" }}
+          />
         </Box>
         <Box sx={{ margin: "20px" }}>
           <Typography sx={{ fontWeight: "bolder" }}>
             Confirm New Password
           </Typography>
-          <TextField placeholder="new password" sx={{ width: "340px" }} />
+          <TextField
+            placeholder="new password"
+            onChange={(e) =>
+              setQuestion({ ...questions, confirmpassword: e.target.value })
+            }
+            sx={{ width: "340px" }}
+          />
         </Box>
         <Box sx={{ minWidth: 120, margin: "20px" }}>
           <Typography sx={{ fontWeight: "bolder" }}>
             Security Question
           </Typography>
-          <FormControl sx={{ width: "750px" }}>
-            <InputLabel id="demo-simple-select-label">
-              Click to select
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              label="Age"
-            >
-              <MenuItem>Favouite color</MenuItem>
-              <MenuItem>Favourite Food</MenuItem>
-              <MenuItem>Favourite pet name</MenuItem>
-              <MenuItem>Fathers middle name</MenuItem>
-              <MenuItem>Mothers middle name</MenuItem>
-            </Select>
-          </FormControl>
+          <>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">
+                Security questions
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="security questions"
+                onChange={(e) =>
+                  setQuestion({
+                    ...questions,
+                    securityquestion: e.target.value,
+                  })
+                }
+              >
+                <MenuItem value="Favourite Color">Favourite color</MenuItem>
+                <MenuItem value="Favourite Food">Favourite food</MenuItem>
+                <MenuItem value="Favourite_PetName">
+                  Favourite pet name
+                </MenuItem>
+                <MenuItem value="Favourite_MiddleName">
+                  Fathers middle name
+                </MenuItem>
+                <MenuItem value="Mothers_MiddleName">
+                  Mothers middle name
+                </MenuItem>
+              </Select>
+            </FormControl>
+          </>
         </Box>
         <Box sx={{ margin: "20px" }}>
           <Typography sx={{ fontWeight: "bolder" }}>
             Answer to Security Question (Only one word is recommended as answer)
           </Typography>
-          <TextField placeholder="Answer" sx={{ width: "880px" }} />
+          <TextField
+            placeholder="Answer"
+            onChange={(e) =>
+              setQuestion({ ...questions, answer: e.target.value })
+            }
+            sx={{ width: "880px" }}
+          />
         </Box>
+        <Button
+          sx={{ margin: "20px" }}
+          variant="contained"
+          onClick={handleSubmit}
+          disabled={
+            !questions.oldpassword ||
+            !questions.newpassword ||
+            !questions.confirmpassword ||
+            !questions.answer ||
+            !questions.securityquestion
+              ? true
+              : false
+          }
+        >
+          {loading && <MDBSpinner />} SUBMIT
+        </Button>
+        {error ? (
+          <Typography sx={{ background: "red", padding: "10px" }}>
+            {error}
+          </Typography>
+        ) : null}
+        {status ? (
+          <Typography sx={{ background: "blue", padding: "10px" }}>
+            {status}
+          </Typography>
+        ) : null}
       </Card>
     </Box>
   );

@@ -3,7 +3,7 @@ import React from "react";
 import EditAcademicdetails from "../components/EditAcademicdetails";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
-const AcademicEdits = ({ message, content, textarea, button, last }) => {
+const AcademicEdits = ({ message, content, textarea, button, last, link }) => {
   return (
     <Box>
       <Header />
@@ -15,6 +15,7 @@ const AcademicEdits = ({ message, content, textarea, button, last }) => {
           textarea={textarea}
           button={button}
           last={last}
+          link={link}
         />
       </Stack>
     </Box>

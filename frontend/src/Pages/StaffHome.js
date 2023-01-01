@@ -1,6 +1,8 @@
 import { Box, Card, Typography } from "@mui/material";
 import React from "react";
+import { useSelector } from "react-redux";
 const StaffHome = () => {
+  const { user } = useSelector((state) => state.user);
   return (
     <Box
       sx={{
@@ -29,7 +31,7 @@ const StaffHome = () => {
             marginTop: "60px",
           }}
         >
-          WELCOME BACK OMOTAYO IYIOLA
+          {user?.fulln}
         </Typography>
       </Card>
     </Box>

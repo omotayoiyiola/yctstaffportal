@@ -1,15 +1,36 @@
 import { ArrowBack } from "@mui/icons-material";
-import {
-  Box,
-  Button,
-  Card,
-  IconButton,
-  TextField,
-  Typography,
-} from "@mui/material";
-import React from "react";
+import { Box, Button, Card, TextField, Typography } from "@mui/material";
+import axios from "axios";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const Uploadpass = () => {
+  const [file, setFile] = useState(null);
+  const { user } = useSelector((state) => state.user);
+  console.log(file);
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+    const formdata = new FormData();
+    formdata.append("image", file);
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+    console.log(formdata);
+    const url = `http://localhost:5000/api/uploadpassport/${user.id}`;
+    axios
+      .put(url, formdata, config)
+      .then((res) => toast.success(res.data.message))
+      .catch((err) => {
+        toast.error(err.response.data.message) ||
+          toast.error("not uploaded successfully");
+      });
+  };
+  const onInputChange = (e) => {
+    setFile(e.target.files[0]);
+  };
   return (
     <Box
       sx={{
@@ -45,30 +66,25 @@ const Uploadpass = () => {
           <Typography sx={{ fontWeight: "bolder", fontSize: "1.3rem" }}>
             Passport uploaded already :
           </Typography>
-          <img
-            src="https://staff.yabatech.edu.ng/staffimgg/1582018875mypass.jpg"
-            alt=""
-          />
+          <img src={user?.imgg} alt="" />
         </Box>
-        <Box sx={{ margin: "40px", display: "flex" }}>
-          <Button sx={{ width: "100px" }} variant="contained" component="label">
-            SELECT PASSPORT
-            <input hidden accept="image/*" multiple type="file" />
-          </Button>
-          <IconButton
-            color="primary"
-            aria-label="upload picture"
+        <form onSubmit={onFormSubmit}>
+          <Button
+            sx={{ width: "100px", margin: "20px" }}
+            variant="contained"
             component="label"
           >
-            <input hidden accept="image/*" type="file" />
-            <TextField sx={{ width: "700px" }} />
-          </IconButton>
-        </Box>
-        <Box sx={{ display: "flex", margin: "40px" }}>
-          <Button sx={{ padding: "20px" }} variant="contained">
-            SUBMIT
+            SELECT PASSPORT
+            <input type="file" name="image" onChange={onInputChange} />
           </Button>
-        </Box>
+          <TextField
+            sx={{ width: "600px", margin: "20px" }}
+            placeholder={file?.name}
+          />
+          <Button variant="contained" type="submit">
+            upload
+          </Button>
+        </form>
       </Card>
     </Box>
   );
