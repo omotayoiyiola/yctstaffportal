@@ -28,7 +28,6 @@ const EditAcademicdetails = ({
   const dispatch = useDispatch();
   const [data, setData] = useState("");
   const { user, updateStatus } = useSelector((state) => state.user);
-
   const values = {
     data: data || content,
     id: user.id,
@@ -39,7 +38,6 @@ const EditAcademicdetails = ({
     e.preventDefault();
     if (link === "editresearcharea") {
       dispatch(editresearcharea(values));
-      window.location.reload();
     }
     if (link === "researchgate") {
       dispatch(researchgate(values));
@@ -59,13 +57,12 @@ const EditAcademicdetails = ({
         "content-type": "multipart/form-data",
       },
     };
-    const url = `http://localhost:5000/api/uploadpublications/${user.id}`;
+    const url = `http://backendyctstaff.omotayoiyiola.com:3000/uploadpublications/${user.id}`;
     axios
       .put(url, formdata, config)
-      .then((res) => toast.success(res.data.message))
+      .then((res) => toast.success(res.data))
       .catch((err) => {
-        toast.error(err.response.data.message) ||
-          toast.error("not uploaded successfully");
+        toast.error(err.response.data);
       });
   };
   const onInputChange = (e) => {
@@ -114,6 +111,72 @@ const EditAcademicdetails = ({
                 sx={{ width: "1005px" }}
                 onChange={(e) => setData(e.target.value)}
               />
+              {updateStatus === "Update successfull" && (
+                <Typography
+                  sx={{
+                    background: "green",
+                    width: "320px",
+                    padding: "10px",
+                    margin: "20px",
+                    color: "white",
+                  }}
+                >
+                  {updateStatus}
+                </Typography>
+              )}
+              {updateStatus === "Update Unsuccessful" && (
+                <Typography
+                  sx={{
+                    background: "red",
+                    width: "320px",
+                    padding: "10px",
+                    margin: "20px",
+                    color: "white",
+                  }}
+                >
+                  {updateStatus}
+                </Typography>
+              )}
+              {updateStatus === "Update successful" && (
+                <Typography
+                  sx={{
+                    background: "blue",
+                    width: "320px",
+                    padding: "10px",
+                    margin: "20px",
+                    color: "white",
+                  }}
+                >
+                  {updateStatus}
+                </Typography>
+              )}
+              {updateStatus === "Please provide more details." && (
+                <Typography
+                  sx={{
+                    background: "red",
+                    width: "320px",
+                    padding: "10px",
+                    margin: "20px",
+                    color: "white",
+                  }}
+                >
+                  {updateStatus}
+                </Typography>
+              )}
+              {updateStatus === "Please provide full link." && (
+                <Typography
+                  sx={{
+                    background: "red",
+                    width: "320px",
+                    padding: "10px",
+                    margin: "20px",
+                    color: "white",
+                  }}
+                >
+                  {updateStatus}
+                </Typography>
+              )}
+
               <Button
                 variant="contained"
                 sx={{ background: "green", margin: "20px", padding: "10px" }}
@@ -139,7 +202,7 @@ const EditAcademicdetails = ({
                   BROWSE FILES (PDF FORMAT ONLY)
                   <input
                     hidden
-                    accept="image/*"
+                    accept=".doc,.pdf"
                     type="file"
                     name="image"
                     onChange={onInputChange}
@@ -150,9 +213,10 @@ const EditAcademicdetails = ({
                   aria-label="upload picture"
                   component="label"
                 >
-                  <input hidden accept="image/*" type="file" />
+                  <input hidden accept=".doc,.pdf" type="file" />
                   <TextField
                     placeholder={file?.name}
+                    disabled
                     sx={{ width: "650px" }}
                     onChange={(e) => setData(e.target.value)}
                   />
@@ -168,13 +232,6 @@ const EditAcademicdetails = ({
               </Button>
             </form>
           </>
-        )}
-        {updateStatus === "Updated successfully" && (
-          <Typography sx={{ background: "green" }}>{updateStatus}</Typography>
-        )}
-
-        {updateStatus === "update Unsuccessful" && (
-          <Typography sx={{ background: "red" }}>{updateStatus}</Typography>
         )}
       </Card>
     </Box>

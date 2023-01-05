@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 const initialState = {
   user: localStorage.getItem("user"),
   loading: false,
@@ -15,14 +15,17 @@ export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (values, { rejectWithValue }) => {
     try {
-      const res = await axios.post(`http://localhost:5000/api/mylogin`, {
-        staffno: values.staffno,
-        password: values.password,
-      });
-      localStorage.setItem("user", JSON.stringify(res.data[0]));
+      const res = await axios.post(
+        `http://backendycttaff.omotayoiyiola.com:3000/mylogin`,
+        {
+          staffno: values.staffno,
+          password: values.password,
+        }
+      );
       return res.data[0];
     } catch (error) {
-      return rejectWithValue(error.response.data.message);
+      console.log(error);
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -33,7 +36,7 @@ export const resetUserPassword = createAsyncThunk(
     console.log(values);
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/resetpassword/${values.id}`,
+        `http://backendyctstaff.omotayoiyiola.com:3000/resetpassword/${values.id}`,
         {
           oldpassword: values.oldpassword,
           newpassword: values.newpassword,
@@ -42,11 +45,11 @@ export const resetUserPassword = createAsyncThunk(
           securityquestion: values.securityquestion,
         }
       );
-      console.log(res.data.message);
-      return res.data.message;
+      console.log(res.data);
+      return res.data;
     } catch (error) {
       console.log(error);
-      return rejectWithValue(error.response.data.message);
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -57,7 +60,7 @@ export const uploadPassport = createAsyncThunk(
     try {
       const res = axios({
         method: "put",
-        url: `http://localhost:5000/api/uploadpassport/${values.id}`,
+        url: `http://backendyctstaff.omotayoiyiola.com:3000/uploadpassport/${values.id}`,
         data: values.image,
         headers: { "Content-Type": "multipart/form-data" },
       })
@@ -69,21 +72,20 @@ export const uploadPassport = createAsyncThunk(
           //handle error
           console.log(response);
         });
-      return res.data.message;
+      return res.data;
     } catch (error) {
       console.log(error);
-      return rejectWithValue(error.response.data.message);
+      return rejectWithValue(error.response.data);
     }
   }
 );
 export const uploadSignature = createAsyncThunk(
   "auth/uploadSignature",
   async (values, { rejectWithValue }) => {
-    console.log(values.id);
     try {
       const res = axios({
         method: "put",
-        url: `http://localhost:5000/api/uploadsignature/${values.id}`,
+        url: `http://backendyctstaff.omotayoiyiola.com:3000/uploadsignature/${values.id}`,
         data: values.image,
         headers: { "Content-Type": "multipart/form-data" },
       })
@@ -95,19 +97,20 @@ export const uploadSignature = createAsyncThunk(
           //handle error
           console.log(response);
         });
-      return res.data.message;
+      return res.data;
     } catch (error) {
       console.log(error);
-      return rejectWithValue(error.response.data.message);
+      return rejectWithValue(error.response.data);
     }
   }
 );
 export const updateBioData = createAsyncThunk(
   "auth/updateBioData",
   async (values, { rejectWithValue }) => {
+    console.log(values);
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/editiodata/${values.id}`,
+        `http://backendyctstaff.omotayoiyiola.com:3000/editbiodata/${values.id}`,
         {
           titl: values.title,
           sexx: values.gender,
@@ -119,44 +122,42 @@ export const updateBioData = createAsyncThunk(
           addy: values.homeAddress,
         }
       );
-      console.log(res);
       return res.data;
     } catch (error) {
-      return rejectWithValue(error.response.data.message);
+      return rejectWithValue(error.response.data);
     }
   }
 );
 export const editnextofkin = createAsyncThunk(
-  "auth/edit",
+  "auth/editnextofkin",
   async (values, { rejectWithValue }) => {
     console.log(values);
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/${values.link}/${values.id}`,
+        `http://backendyctstaff.omotayoiyiola.com:3000/${values.link}/${values.id}`,
         {
           nextkin: values.data,
         }
       );
-      return res.data.message;
+      return res.data;
     } catch (error) {
-      return rejectWithValue(error.response.data.message);
+      return rejectWithValue(error.response.data);
     }
   }
 );
 export const editprofessional = createAsyncThunk(
   "auth/editprofessional",
   async (values, { rejectWithValue }) => {
-    console.log(values);
     try {
       const res = await axios.put(
-        `http://localhost:5000/ap/${values.link}/${values.id}`,
+        `http://backendyctstaff.omotayoiyiola.com:3000/${values.link}/${values.id}`,
         {
           qualprof: values.data,
         }
       );
-      return res.data.message;
+      return res.data;
     } catch (error) {
-      return rejectWithValue(error.response.data.message);
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -166,15 +167,15 @@ export const editchildren = createAsyncThunk(
     console.log(values);
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/${values.link}/${values.id}`,
+        `http://backendyctstaff.omotayoiyiola.com:3000/${values.link}/${values.id}`,
         {
           chd: values.data,
         }
       );
 
-      return res.data.message;
+      return res.data;
     } catch (error) {
-      return rejectWithValue(error.response.data.message);
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -184,51 +185,49 @@ export const editspouse = createAsyncThunk(
     console.log(values);
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/${values.link}/${values.id}`,
+        `http://backendyctstaff.omotayoiyiola.com:3000/${values.link}/${values.id}`,
         {
           spous: values.data,
         }
       );
 
-      return res.data.message;
+      return res.data;
     } catch (error) {
-      return rejectWithValue(error.response.data.message);
+      return rejectWithValue(error.response.data);
     }
   }
 );
 export const editresearcharea = createAsyncThunk(
   "auth/editresearcharea",
   async (values, { rejectWithValue }) => {
-    console.log(values);
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/${values.link}/${values.id}`,
+        `http://backendyctstaff.omotayoiyiola.com:3000/${values.link}/${values.id}`,
         {
           resach: values.data,
         }
       );
 
-      return res.data.message;
+      return res.data;
     } catch (error) {
-      return rejectWithValue(error.response.data.message);
+      return rejectWithValue(error.response.data);
     }
   }
 );
 export const researchgate = createAsyncThunk(
   "auth/researchgate",
   async (values, { rejectWithValue }) => {
-    console.log(values);
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/${values.link}/${values.id}`,
+        `http://backendyctstaff.omotayoiyiola.com:3000/${values.link}/${values.id}`,
         {
           rgate: values.data,
         }
       );
 
-      return res.data.message;
+      return res.data;
     } catch (error) {
-      return rejectWithValue(error.response.data.message);
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -238,18 +237,19 @@ export const editSeminars = createAsyncThunk(
     console.log(values);
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/${values.link}/${values.id}`,
+        `http://backendyctstaff.omotayoiyiola.com:3000/${values.link}/${values.id}`,
         {
           seminars: values.data,
         }
       );
 
-      return res.data.message;
+      return res.data;
     } catch (error) {
-      return rejectWithValue(error.response.data.message);
+      return rejectWithValue(error.response.data);
     }
   }
 );
+
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -351,6 +351,7 @@ const userSlice = createSlice({
       return { ...state, loading: true, error: "", updateStatus: "pending" };
     });
     builder.addCase(editnextofkin.fulfilled, (state, action) => {
+      window.location.reload();
       return {
         ...state,
         loading: false,
@@ -359,9 +360,10 @@ const userSlice = createSlice({
       };
     });
     builder.addCase(editnextofkin.rejected, (state, action) => {
+      window.location.reload();
       return {
         ...state,
-        updateStatus: "update Unsuccessful",
+        updateStatus: action.payload,
         loading: false,
       };
     });
@@ -369,6 +371,7 @@ const userSlice = createSlice({
       return { ...state, loading: true, error: "", updateStatus: "pending" };
     });
     builder.addCase(editprofessional.fulfilled, (state, action) => {
+      window.location.reload();
       return {
         ...state,
         loading: false,
@@ -377,9 +380,10 @@ const userSlice = createSlice({
       };
     });
     builder.addCase(editprofessional.rejected, (state, action) => {
+      window.location.reload();
       return {
         ...state,
-        updateStatus: "update Unsuccessful",
+        updateStatus: action.payload,
         loading: false,
       };
     });
@@ -387,6 +391,7 @@ const userSlice = createSlice({
       return { ...state, loading: true, error: "", updateStatus: "pending" };
     });
     builder.addCase(editchildren.fulfilled, (state, action) => {
+      window.location.reload();
       return {
         ...state,
         loading: false,
@@ -395,9 +400,10 @@ const userSlice = createSlice({
       };
     });
     builder.addCase(editchildren.rejected, (state, action) => {
+      window.location.reload();
       return {
         ...state,
-        updateStatus: "update Unsuccessful",
+        updateStatus: action.payload,
         loading: false,
       };
     });
@@ -405,6 +411,7 @@ const userSlice = createSlice({
       return { ...state, loading: true, error: "", updateStatus: "pending" };
     });
     builder.addCase(editspouse.fulfilled, (state, action) => {
+      window.location.reload();
       return {
         ...state,
         loading: false,
@@ -413,9 +420,10 @@ const userSlice = createSlice({
       };
     });
     builder.addCase(editspouse.rejected, (state, action) => {
+      window.location.reload();
       return {
         ...state,
-        updateStatus: "update Unsuccessful",
+        updateStatus: action.payload,
         loading: false,
       };
     });
@@ -423,6 +431,7 @@ const userSlice = createSlice({
       return { ...state, loading: true, error: "", updateStatus: "pending" };
     });
     builder.addCase(editresearcharea.fulfilled, (state, action) => {
+      window.location.reload();
       return {
         ...state,
         loading: false,
@@ -431,9 +440,10 @@ const userSlice = createSlice({
       };
     });
     builder.addCase(editresearcharea.rejected, (state, action) => {
+      window.location.reload();
       return {
         ...state,
-        updateStatus: "update Unsuccessful",
+        updateStatus: action.payload,
         loading: false,
       };
     });
@@ -441,6 +451,7 @@ const userSlice = createSlice({
       return { ...state, loading: true, error: "", updateStatus: "pending" };
     });
     builder.addCase(researchgate.fulfilled, (state, action) => {
+      window.location.reload();
       return {
         ...state,
         loading: false,
@@ -449,9 +460,10 @@ const userSlice = createSlice({
       };
     });
     builder.addCase(researchgate.rejected, (state, action) => {
+      window.location.reload();
       return {
         ...state,
-        updateStatus: "update Unsuccessful",
+        updateStatus: action.payload,
         loading: false,
       };
     });
@@ -459,6 +471,7 @@ const userSlice = createSlice({
       return { ...state, loading: true, error: "", updateStatus: "pending" };
     });
     builder.addCase(editSeminars.fulfilled, (state, action) => {
+      window.location.reload();
       return {
         ...state,
         loading: false,
@@ -467,9 +480,10 @@ const userSlice = createSlice({
       };
     });
     builder.addCase(editSeminars.rejected, (state, action) => {
+      window.location.reload();
       return {
         ...state,
-        updateStatus: "update Unsuccessful",
+        updateStatus: action.payload,
         loading: false,
       };
     });

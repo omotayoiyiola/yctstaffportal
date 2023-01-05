@@ -11,7 +11,6 @@ import {
   Typography,
 } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-
 import { ArrowBack } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { updateBioData } from "../redux/userSlice";
@@ -32,23 +31,10 @@ const Editbiodata = () => {
   const { user, updateStatus } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const nav = useNavigate();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(updateBioData(values));
-    if (updateStatus === "update Unsuccessful") {
-      toast.error("Update successful");
-      console.log("yes");
-    } else {
-      nav("/viewprofile");
-    }
-    //
-  };
-  console.log(user.id);
   const { data, isLoading, isError } = useQuery(["stuff"], () => {
     try {
       return userRequest
-        .get(`/api/staffrecord/${user.id}`)
+        .get(`/staffrecord/${user.id}`)
         .then((res) => res.data[0]);
     } catch (error) {
       isError(error);
@@ -64,6 +50,16 @@ const Editbiodata = () => {
     category: category || data?.categ,
     officephone: officePhoneNo || data?.fonoffi,
     id: user.id,
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (values?.officephone?.length !== 11 || values?.phoneNo?.length !== 11) {
+      toast.error("phone number must be 11 digits");
+    } else if (updateStatus === "update Unsuccessful") {
+      toast.error("Update unsuccessful");
+    } else {
+      dispatch(updateBioData(values)) && toast.success("Update successful");
+    }
   };
   return (
     <Box
@@ -175,6 +171,7 @@ const Editbiodata = () => {
                 **Personal phone number
               </Typography>
               <TextField
+                type="number"
                 placeholder={data?.fon}
                 sx={{ width: "890px" }}
                 onChange={(e) => setPhoneNo(e.target.value)}
@@ -185,6 +182,7 @@ const Editbiodata = () => {
                 **Official phone number
               </Typography>
               <TextField
+                type="number"
                 placeholder={data?.fonoffi}
                 sx={{ width: "890px" }}
                 onChange={(e) => setOfficePhoneNo(e.target.value)}
@@ -224,6 +222,18 @@ const Editbiodata = () => {
               variant="contained"
               sx={{ margin: "20px", padding: "15px", background: "green" }}
               onClick={handleSubmit}
+              disabled={
+                title === "" &&
+                phoneNo === "" &&
+                officePhoneNo === "" &&
+                officeemail === "" &&
+                personalemail === "" &&
+                homeAddress === "" &&
+                gender === "" &&
+                category === ""
+                  ? true
+                  : false
+              }
             >
               {updateStatus === "pending" && <MDBSpinner />} UPDATE NOW
             </Button>

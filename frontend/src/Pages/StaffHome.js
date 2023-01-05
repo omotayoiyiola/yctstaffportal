@@ -3,6 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 const StaffHome = () => {
   const { user } = useSelector((state) => state.user);
+  console.log(user);
   return (
     <Box
       sx={{
@@ -14,7 +15,7 @@ const StaffHome = () => {
     >
       <Card
         sx={{
-          height: "350px",
+          height: "150px",
           width: "950px",
           alignItems: "center",
           position: "absolute",

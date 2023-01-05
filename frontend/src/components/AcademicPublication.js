@@ -14,6 +14,7 @@ import { ArrowBack } from "@mui/icons-material";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import TableList from "./TableList";
 const AcademicPublication = () => {
   const { user } = useSelector((state) => state.user);
   const [title, setTitle] = useState("");
@@ -23,11 +24,9 @@ const AcademicPublication = () => {
   const [publisher, setPublisher] = useState("");
   const [status, setStatus] = useState("");
   const [file, setFile] = useState(null);
-  console.log(user);
   const onInputChange = (e) => {
     setFile(e.target.files[0]);
   };
-  console.log(year, title, abstract, author, publisher, status, file);
   const onFormSubmit = (e) => {
     e.preventDefault();
     let formdata = new FormData();
@@ -50,9 +49,9 @@ const AcademicPublication = () => {
       data: formdata,
     })
       .then((res) => toast.success(res.data))
+      .then(() => window.location.reload())
       .catch((err) => {
-        // toast.error(err.response.data.message) ||
-        toast.error("not uploaded successfully");
+        toast.success("not uploaded");
       });
   };
 
@@ -81,18 +80,6 @@ const AcademicPublication = () => {
           left: "5%",
         }}
       >
-        <Box sx={{ textAlign: "center", background: "green", color: "white" }}>
-          <Typography sx={{ fontSize: "1.35rem", fontWeight: "bolder" }}>
-            Upload or replace passport photograph (200 x 200 pixels, red
-            background)
-          </Typography>
-        </Box>
-        <Box sx={{ display: "flex", margin: "40px", alignItems: "center" }}>
-          <Typography sx={{ fontWeight: "bolder", fontSize: "1.3rem" }}>
-            Passport uploaded already :
-          </Typography>
-          <img src={user?.imgg} alt="" />
-        </Box>
         <form onSubmit={onFormSubmit}>
           <Box sx={{ margin: "20px" }}>
             <Typography sx={{ fontWeight: "bolder" }}>Title</Typography>
@@ -109,6 +96,7 @@ const AcademicPublication = () => {
             <TextField
               sx={{ width: "890px" }}
               onChange={(e) => setAuthor(e.target.value)}
+              required
             />
           </Box>
 
@@ -121,6 +109,7 @@ const AcademicPublication = () => {
                 Year of Publication
               </InputLabel>
               <Select
+                required
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 label="security questions"
@@ -159,6 +148,7 @@ const AcademicPublication = () => {
             <TextField
               sx={{ width: "890px" }}
               onChange={(e) => setPublisher(e.target.value)}
+              required
             />
           </Box>
           <Box sx={{ margin: "20px" }}>
@@ -166,6 +156,7 @@ const AcademicPublication = () => {
             <TextField
               sx={{ width: "890px" }}
               onChange={(e) => setAbstract(e.target.value)}
+              required
             />
           </Box>
           <Box sx={{ margin: "20px" }}>
@@ -173,6 +164,7 @@ const AcademicPublication = () => {
             <FormControl sx={{ width: "890px" }}>
               <InputLabel id="demo-simple-select-label">Status</InputLabel>
               <Select
+                required
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 label="status"
@@ -189,16 +181,48 @@ const AcademicPublication = () => {
             component="label"
           >
             BROWSE PUBLICATION (PDF FORMAT ONLY)
-            <input hidden type="file" name="image" onChange={onInputChange} />
+            <input
+              hidden
+              type="file"
+              name="image"
+              accept=".pdf,.docs"
+              onChange={onInputChange}
+            />
           </Button>
           <TextField
             sx={{ width: "600px", margin: "20px" }}
             placeholder={file?.name}
           />
-          <Button variant="contained" type="submit" sx={{ margin: "20px" }}>
+          <Button
+            disabled={
+              title === "" ||
+              abstract === "" ||
+              author === "" ||
+              year === "" ||
+              publisher === "" ||
+              status === "" ||
+              file === ""
+                ? true
+                : false
+            }
+            variant="contained"
+            type="submit"
+            sx={{ margin: "20px" }}
+          >
             upload
           </Button>
         </form>
+      </Card>
+      <Card
+        sx={{
+          width: "1050px",
+          height: "auto",
+          position: "absolute",
+          top: "50%",
+          left: "0.8%",
+        }}
+      >
+        <TableList />
       </Card>
     </Box>
   );

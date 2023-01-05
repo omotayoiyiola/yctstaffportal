@@ -1,14 +1,26 @@
 import { ArrowBack } from "@mui/icons-material";
 import { Box, Button, Card, TextField, Typography } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { userRequest } from "../api";
 
 const Uploadpass = () => {
   const [file, setFile] = useState(null);
   const { user } = useSelector((state) => state.user);
-  console.log(file);
+  const [profilePixs, setProfilePixs] = useState(null);
+
+  const { data, isLoading, isError } = useQuery(["stuff"], () => {
+    try {
+      return userRequest
+        .get(`/staffrecord/${user.id}`)
+        .then((res) => setProfilePixs(res.data[0]));
+    } catch (error) {
+      isError(error);
+    }
+  });
   const onFormSubmit = (e) => {
     e.preventDefault();
     const formdata = new FormData();
@@ -18,19 +30,19 @@ const Uploadpass = () => {
         "content-type": "multipart/form-data",
       },
     };
-    console.log(formdata);
-    const url = `http://localhost:5000/api/uploadpassport/${user.id}`;
+    const url = `http://backendyctstaff.omotayoiyiola.com:3000/uploadpassport/${user.id}`;
     axios
       .put(url, formdata, config)
-      .then((res) => toast.success(res.data.message))
+      .then((res) => toast.success(res.data) && window.location.reload())
       .catch((err) => {
-        toast.error(err.response.data.message) ||
-          toast.error("not uploaded successfully");
+        console.log(err);
+        toast.error(err.response.data);
       });
   };
   const onInputChange = (e) => {
     setFile(e.target.files[0]);
   };
+  console.log(profilePixs);
   return (
     <Box
       sx={{
@@ -66,22 +78,33 @@ const Uploadpass = () => {
           <Typography sx={{ fontWeight: "bolder", fontSize: "1.3rem" }}>
             Passport uploaded already :
           </Typography>
-          <img src={user?.imgg} alt="" />
+          <img style={{ height: "120px" }} src={profilePixs?.imgg} alt="" />
         </Box>
         <form onSubmit={onFormSubmit}>
           <Button
-            sx={{ width: "100px", margin: "20px" }}
+            sx={{ width: "190px", margin: "20px", padding: "15px" }}
             variant="contained"
             component="label"
           >
             SELECT PASSPORT
-            <input type="file" name="image" onChange={onInputChange} />
+            <input
+              hidden
+              type="file"
+              name="image"
+              accept=".png, .jpg, .jpeg"
+              onChange={onInputChange}
+            />
           </Button>
           <TextField
-            sx={{ width: "600px", margin: "20px" }}
+            sx={{ width: "500px", margin: "20px" }}
             placeholder={file?.name}
+            disabled
           />
-          <Button variant="contained" type="submit">
+          <Button
+            variant="contained"
+            type="submit"
+            disabled={file === null ? true : false}
+          >
             upload
           </Button>
         </form>

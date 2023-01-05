@@ -139,7 +139,7 @@ const Sidebar = () => {
       sx={{
         display: { xs: "none", sm: "none", lg: "block" },
         backgroundColor: "green",
-        height: "195vh",
+        height: "280vh",
         flex: 1,
       }}
     >

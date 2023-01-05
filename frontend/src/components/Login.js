@@ -15,7 +15,7 @@ const Login = () => {
   const { user, error, loading, loginStatus } = useSelector(
     (state) => state.user
   );
-  console.log(user);
+
   useEffect(() => {
     if (user) {
       navigate("/dashboard");
@@ -85,6 +85,7 @@ const Login = () => {
             <TextField
               placeholder="PASSWORD"
               sx={{ width: "100%" }}
+              type="password"
               onChange={(e) =>
                 setUserProfile({ ...userProfile, password: e.target.value })
               }
@@ -94,6 +95,11 @@ const Login = () => {
                 onClick={handleLogin}
                 variant="contained"
                 size="medium"
+                disabled={
+                  userProfile.staffno === "" || userProfile.password === ""
+                    ? true
+                    : false
+                }
                 sx={{ marginTop: "6px", background: "green", height: "45px" }}
               >
                 {loading && <MDBSpinner />} Login

@@ -15,7 +15,7 @@ const Viewprofile = () => {
     () => {
       try {
         return userRequest
-          .get(`/api/staffrecord/${user.id}`)
+          .get(`/staffrecord/${user.id}`)
           .then((res) => res.data[0]);
       } catch (error) {
         isError(error);
@@ -308,10 +308,7 @@ const Viewprofile = () => {
                 {" "}
                 Signature :
               </Typography>
-              <img
-                src="https://staff.yabatech.edu.ng/staffsign/1565326848mysignature.jpg"
-                alt=""
-              />
+              <img src={data?.sign} alt="" />
             </Box>
             <Box
               sx={{

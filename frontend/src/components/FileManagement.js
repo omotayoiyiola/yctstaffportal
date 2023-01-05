@@ -4,6 +4,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import DocTableList from "./DocTableList";
 
 const FileMangement = () => {
   const [file, setFile] = useState("");
@@ -23,7 +24,7 @@ const FileMangement = () => {
       toast.info("please upload an image");
     } else {
       axios({
-        url: "http://localhost:5000/api/ocmgt",
+        url: "http://backendyctstaff.omotayoiyiola.com:3000/docmgt",
         method: "POST",
         headers: {
           "content-type": "multipart/form-data",
@@ -31,6 +32,7 @@ const FileMangement = () => {
         data: formdata,
       })
         .then((res) => toast.success(res.data))
+        .then(() => window.location.reload())
         .catch((error) => {
           toast.error("not uploaded successfully");
         });
@@ -88,9 +90,14 @@ const FileMangement = () => {
                   type="file"
                   name="image"
                   onChange={onInputChange}
+                  accept=".doc,.pdf"
                 />
               </Button>
-              <TextField sx={{ width: "550px" }} placeholder={file?.name} />
+              <TextField
+                disabled
+                sx={{ width: "550px" }}
+                placeholder={file?.name}
+              />
             </Box>
           </Box>
           <Button
@@ -113,145 +120,11 @@ const FileMangement = () => {
           width: "1050px",
           height: "auto",
           position: "absolute",
-          top: "40%",
+          top: "30%",
           left: "0.8%",
         }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            borderBottom: "1px solid black",
-            alignItems: "center",
-            textAlign: "center",
-            padding: "15px",
-          }}
-        >
-          <Typography>S/N</Typography>
-          <Typography>TITLE</Typography>
-          <Typography>DATE UPLOADED</Typography>
-          <Typography> DOWNLOAD FILE</Typography>
-          <Typography>DELETE FILE</Typography>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            borderBottom: "1px solid black",
-            alignItems: "center",
-            textAlign: "center",
-            padding: "15px",
-          }}
-        >
-          <Typography>1</Typography>
-          <Typography>My photograph</Typography>
-          <Typography>Dec 28, 2019 01:42 pm</Typography>
-          <Button variant="contained" startIcon={<Download />}>
-            DOWNLOAD FILE
-          </Button>
-          <Button variant="contained" startIcon={<Delete />}>
-            DELETE FILE
-          </Button>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            borderBottom: "1px solid black",
-            alignItems: "center",
-            textAlign: "center",
-            padding: "15px",
-          }}
-        >
-          <Typography>2</Typography>
-          <Typography>My photograph</Typography>
-          <Typography>Dec 28, 2019 01:42 pm</Typography>
-          <Button variant="contained" startIcon={<Download />}>
-            DOWNLOAD FILE
-          </Button>
-          <Button variant="contained" startIcon={<Delete />}>
-            DELETE FILE
-          </Button>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            borderBottom: "1px solid black",
-            alignItems: "center",
-            textAlign: "center",
-            padding: "15px",
-          }}
-        >
-          <Typography>3</Typography>
-          <Typography>My photograph</Typography>
-          <Typography>Dec 28, 2019 01:42 pm</Typography>
-          <Button variant="contained" startIcon={<Download />}>
-            DOWNLOAD FILE
-          </Button>
-          <Button variant="contained" startIcon={<Delete />}>
-            DELETE FILE
-          </Button>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            borderBottom: "1px solid black",
-            alignItems: "center",
-            textAlign: "center",
-            padding: "15px",
-          }}
-        >
-          <Typography>4</Typography>
-          <Typography>My photograph</Typography>
-          <Typography>Dec 28, 2019 01:42 pm</Typography>
-          <Button variant="contained" startIcon={<Download />}>
-            DOWNLOAD FILE
-          </Button>
-          <Button variant="contained" startIcon={<Delete />}>
-            DELETE FILE
-          </Button>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            borderBottom: "1px solid black",
-            alignItems: "center",
-            textAlign: "center",
-            padding: "15px",
-          }}
-        >
-          <Typography>5</Typography>
-          <Typography>My photograph</Typography>
-          <Typography>Dec 28, 2019 01:42 pm</Typography>
-          <Button variant="contained" startIcon={<Download />}>
-            DOWNLOAD FILE
-          </Button>
-          <Button variant="contained" startIcon={<Delete />}>
-            DELETE FILE
-          </Button>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            textAlign: "center",
-            padding: "15px",
-          }}
-        >
-          <Typography>6</Typography>
-          <Typography>My photograph</Typography>
-          <Typography>Dec 28, 2019 01:42 pm</Typography>
-          <Button variant="contained" startIcon={<Download />}>
-            DOWNLOAD FILE
-          </Button>
-          <Button variant="contained" startIcon={<Delete />}>
-            DELETE FILE
-          </Button>
-        </Box>
+        <DocTableList />
       </Card>
     </Box>
   );

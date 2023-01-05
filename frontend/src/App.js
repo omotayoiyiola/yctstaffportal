@@ -19,19 +19,18 @@ import { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import axios from "axios";
 import AcademicPublicationn from "./Pages/AcademicPublication";
-import Test from "./components/Test";
 
 function App() {
   const client = new QueryClient();
   const { user } = useSelector((state) => state.user);
-  console.log(user.id);
+  console.log(user?.id);
   const [userProfile, setUserProfile] = useState();
   const nav = useNavigate();
   useEffect(() => {
     const request = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/staffrecord/${user.id}`
+          `http://backendyctstaff.omotayoiyiola.com:3000/staffrecord/${user?.id}`
         );
         console.log(res);
         setUserProfile(res.data[0]);
@@ -41,7 +40,7 @@ function App() {
       }
     };
     request();
-  }, [user.id]);
+  }, [user?.id]);
   console.log(userProfile);
   useEffect(() => {
     !user && nav("/login");
@@ -143,9 +142,9 @@ function App() {
             element={
               <AcademicEdits
                 message="Upload Publications"
-                content="View uploaded publications"
+                content="All Publications in one PDF"
                 button="true"
-                last="CV"
+                last="publication"
               />
             }
           />
@@ -184,10 +183,10 @@ function App() {
               />
             }
           />
-          <Route path="test" element={<Test />} />
+          {/* <Route path="test" element={<Test />} /> */}
           <Route path="myextension" element={<Myextension />} />
           <Route path="docmgt" element={<FileManagement />} />
-          {/* <Route path="/" element={ <Home />}  /> */}
+          <Route path="/" element={<Dashboard />} />
         </Routes>
       </QueryClientProvider>
     </div>

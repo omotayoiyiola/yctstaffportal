@@ -2,7 +2,6 @@ import { ArrowBack } from "@mui/icons-material";
 import { Box, Typography, Card, TextField, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import {
   editchildren,
   editnextofkin,
@@ -19,28 +18,22 @@ const EditDetailspage = ({ message, submessage, allowed, link }) => {
     id: user.id,
     link: link,
   };
-  console.log(values);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (link === "editnextofkin") {
       dispatch(editnextofkin(values));
-      window.location.reload();
     }
     if (link === "editprofessional") {
       dispatch(editprofessional(values));
-      window.location.reload();
     }
     if (link === "editchildren") {
       dispatch(editchildren(values));
-      window.location.reload();
     }
     if (link === "editspouse") {
       dispatch(editspouse(values));
-      window.location.reload();
     }
   };
-  console.log(link);
   return (
     <Box
       sx={{
@@ -86,19 +79,66 @@ const EditDetailspage = ({ message, submessage, allowed, link }) => {
             sx={{ width: "1005px" }}
           />
         </Box>
+        {updateStatus === "Update successfull" && (
+          <Typography
+            sx={{
+              background: "green",
+              width: "320px",
+              padding: "10px",
+              margin: "20px",
+              color: "white",
+            }}
+          >
+            {updateStatus}
+          </Typography>
+        )}
+        {updateStatus === "Update Unsuccessful" && (
+          <Typography
+            sx={{
+              background: "red",
+              width: "320px",
+              padding: "10px",
+              margin: "20px",
+              color: "white",
+            }}
+          >
+            {updateStatus}
+          </Typography>
+        )}
+        {updateStatus === "Update successful" && (
+          <Typography
+            sx={{
+              background: "blue",
+              width: "320px",
+              padding: "10px",
+              margin: "20px",
+              color: "white",
+            }}
+          >
+            {updateStatus}
+          </Typography>
+        )}
+        {updateStatus === "Please provide more details." && (
+          <Typography
+            sx={{
+              background: "red",
+              width: "320px",
+              padding: "10px",
+              margin: "20px",
+              color: "white",
+            }}
+          >
+            {updateStatus}
+          </Typography>
+        )}
         <Button
+          disabled={allowed === "true" ? true : false}
           onClick={handleSubmit}
           variant="contained"
           sx={{ margin: "20px" }}
         >
           Edit
         </Button>
-        {updateStatus === "Updated successfully" && (
-          <Typography sx={{ background: "green" }}>{updateStatus}</Typography>
-        )}
-        {updateStatus === "update Unsuccessful" && (
-          <Typography sx={{ background: "red" }}>{updateStatus}</Typography>
-        )}
       </Card>
     </Box>
   );

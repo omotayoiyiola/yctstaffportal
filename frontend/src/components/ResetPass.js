@@ -69,6 +69,7 @@ const ResetPass = () => {
         <Box sx={{ margin: "20px" }}>
           <Typography sx={{ fontWeight: "bolder" }}>Old Password</Typography>
           <TextField
+            type="password"
             placeholder="old password"
             onChange={(e) =>
               setQuestion({ ...questions, oldpassword: e.target.value })
@@ -79,6 +80,7 @@ const ResetPass = () => {
         <Box sx={{ margin: "20px" }}>
           <Typography sx={{ fontWeight: "bolder" }}>New password</Typography>
           <TextField
+            type="password"
             placeholder="new password"
             onChange={(e) =>
               setQuestion({ ...questions, newpassword: e.target.value })
@@ -91,6 +93,7 @@ const ResetPass = () => {
             Confirm New Password
           </Typography>
           <TextField
+            type="password"
             placeholder="new password"
             onChange={(e) =>
               setQuestion({ ...questions, confirmpassword: e.target.value })
@@ -145,6 +148,32 @@ const ResetPass = () => {
             sx={{ width: "880px" }}
           />
         </Box>
+        {error ? (
+          <Typography
+            sx={{
+              background: "red",
+              width: "320px",
+              padding: "10px",
+              margin: "15px",
+              color: "white",
+            }}
+          >
+            {error}
+          </Typography>
+        ) : null}
+        {status ? (
+          <Typography
+            sx={{
+              background: "blue",
+              width: "320px",
+              padding: "10px",
+              margin: "15px",
+              color: "white",
+            }}
+          >
+            {status}
+          </Typography>
+        ) : null}
         <Button
           sx={{ margin: "20px" }}
           variant="contained"
@@ -161,16 +190,6 @@ const ResetPass = () => {
         >
           {loading && <MDBSpinner />} SUBMIT
         </Button>
-        {error ? (
-          <Typography sx={{ background: "red", padding: "10px" }}>
-            {error}
-          </Typography>
-        ) : null}
-        {status ? (
-          <Typography sx={{ background: "blue", padding: "10px" }}>
-            {status}
-          </Typography>
-        ) : null}
       </Card>
     </Box>
   );
