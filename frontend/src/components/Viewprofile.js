@@ -29,7 +29,6 @@ const Viewprofile = () => {
   const handleClick = () => {
     nav("/editbiodata");
   };
-  console.log(data);
   return (
     <Box
       sx={{
@@ -94,7 +93,12 @@ const Viewprofile = () => {
               >
                 Staff passport :
               </Typography>
-              <img style={{ height: "100px" }} src={data?.imgg} alt="" />
+              <img
+                style={{ height: "100px" }}
+                src={data?.imgg}
+                alt=""
+                style={{ width: "200px", height: "200px" }}
+              />
             </Box>
             <Box
               sx={{
@@ -308,7 +312,11 @@ const Viewprofile = () => {
                 {" "}
                 Signature :
               </Typography>
-              <img src={data?.sign} alt="" />
+              <img
+                src={data?.sign}
+                alt=""
+                style={{ width: "200px", height: "200px" }}
+              />
             </Box>
             <Box
               sx={{

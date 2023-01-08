@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { DataGrid } from "@mui/x-data-grid";
 import { useSelector } from "react-redux";
@@ -8,11 +8,16 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { Modal, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import { MDBSpinner } from "mdb-react-ui-kit";
+import fileDownload from "js-file-download";
 const TableList = () => {
   const { user } = useSelector((state) => state.user);
   const [userData, setUserData] = useState([]);
   const [open, setOpen] = useState(false);
   const [publicationDetails, setPublicationDetails] = useState([]);
+  function custom_sort(a, b) {
+    return new Date(b.dreg).getTime() - new Date(a.dreg).getTime();
+  }
   const handleOpen = (id) => {
     setOpen(true);
     const fetchData = async () => {
@@ -28,10 +33,11 @@ const TableList = () => {
     try {
       return userRequest
         .get(`/mysinglepublications/${user.id}`)
-        .then((res) => setUserData(res.data));
+        .then((res) => setUserData(res.data.sort(custom_sort)));
     } catch (error) {
       isError(error);
     }
+    return data;
   });
   const rows = userData.map((list) => {
     return {
@@ -39,6 +45,8 @@ const TableList = () => {
       titl: list?.titl,
       autho: list?.autho,
       yea: list?.yea,
+      newlenk: list?.newlenk,
+      dreg: list?.dreg,
     };
   });
   const handleClick = (id) => {
@@ -55,10 +63,24 @@ const TableList = () => {
           return res.data;
         }
       } catch (error) {
-        console.log(error);
+        return error;
       }
     };
     DeleteData();
+  };
+
+  const downloadFile = async (e, lenk, id) => {
+    e.preventDefault();
+    const file = lenk.slice(16);
+    var ext = lenk.split(".").pop();
+
+    axios({
+      url: `http://backendyctstaff.omotayoiyiola.com:3000/downloadsinglepublicationfile/${id}`,
+      method: "GET",
+      responseType: "blob",
+    }).then((res) => {
+      fileDownload(res.data, `${file}.${ext}`);
+    });
   };
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
@@ -73,7 +95,13 @@ const TableList = () => {
       renderCell: (params) => {
         return (
           <Actions>
-            <DispatchedBtn>Download File</DispatchedBtn>
+            <DispatchedBtn
+              onClick={(e) =>
+                downloadFile(e, params.row.newlenk, params.row.id)
+              }
+            >
+              Download File
+            </DispatchedBtn>
             <DeliveryBtn onClick={() => handleClick(params.row.id)}>
               Delete file
             </DeliveryBtn>
@@ -97,7 +125,7 @@ const TableList = () => {
   };
   return (
     <div style={{ height: 400, width: "100%" }}>
-      {userData.length === 0 ? (
+      {isLoading ? (
         <h2
           style={{
             justifyContent: "center",
@@ -106,7 +134,7 @@ const TableList = () => {
             margin: "auto",
           }}
         >
-          NO PUBLICATIONS YET
+          <MDBSpinner />
         </h2>
       ) : (
         <DataGrid

@@ -1,12 +1,13 @@
-import { Delete, Download } from "@mui/icons-material";
 import { Box, Typography, Card, TextField, Button } from "@mui/material";
 import axios from "axios";
+import { MDBSpinner } from "mdb-react-ui-kit";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import DocTableList from "./DocTableList";
 
 const FileMangement = () => {
+  const [loading, setLoading] = useState(false);
   const [file, setFile] = useState("");
   const [title, setTitle] = useState("");
   const { user } = useSelector((state) => state.user);
@@ -15,11 +16,14 @@ const FileMangement = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
+
     let formdata = new FormData();
     formdata.append("image", file);
     formdata.append("titl", title);
     formdata.append("staffid", user?.staffno);
     formdata.append("usid", user?.id);
+
     if (file === undefined) {
       toast.info("please upload an image");
     } else {
@@ -33,8 +37,10 @@ const FileMangement = () => {
       })
         .then((res) => toast.success(res.data))
         .then(() => window.location.reload())
+        .then(() => setLoading(false))
         .catch((error) => {
           toast.error("not uploaded successfully");
+          setLoading(false);
         });
     }
   };
@@ -90,7 +96,7 @@ const FileMangement = () => {
                   type="file"
                   name="image"
                   onChange={onInputChange}
-                  accept=".doc,.pdf"
+                  accept=".doc,.pdf,.png,.jpeg,.jpg"
                 />
               </Button>
               <TextField
@@ -111,7 +117,7 @@ const FileMangement = () => {
             }}
             disabled={title === "" || file === "" ? true : false}
           >
-            SUBMIT
+            {loading && <MDBSpinner />} SUBMIT
           </Button>
         </form>
       </Card>

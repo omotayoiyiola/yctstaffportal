@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { MDBSpinner } from "mdb-react-ui-kit";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -16,10 +17,10 @@ import { userRequest } from "../api";
 
 const UploadSig = () => {
   const [file, setFile] = useState(null);
-  const { user } = useSelector((state) => state.user);
+  const { user, loading } = useSelector((state) => state.user);
   const [profilePixs, setProfilePixs] = useState(null);
 
-  const { data, isLoading, isError } = useQuery(["stuff"], () => {
+  const { isError } = useQuery(["stuff"], () => {
     try {
       return userRequest
         .get(`/staffrecord/${user.id}`)
@@ -28,7 +29,6 @@ const UploadSig = () => {
       isError(error);
     }
   });
-  console.log(file);
   const onFormSubmit = (e) => {
     e.preventDefault();
     const formdata = new FormData();
@@ -41,8 +41,7 @@ const UploadSig = () => {
     const url = `http://backendyctstaff.omotayoiyiola.com:3000/uploadsignature/${user.id}`;
     axios
       .put(url, formdata, config)
-      .then((res) => toast.success(res.data))
-      .then(() => window.location.reload())
+      .then((res) => toast.success(res.data) && window.location.reload())
       .catch((err) => {
         toast.error(err.response.data) ||
           toast.error("not uploaded successfully");
@@ -88,7 +87,11 @@ const UploadSig = () => {
             aria-label="upload picture"
             component="label"
           ></IconButton>
-          <img style={{ height: "120px" }} src={profilePixs?.sign} alt="" />
+          <img
+            style={{ width: "200px", height: "50px" }}
+            src={profilePixs?.sign}
+            alt=""
+          />
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column", margin: "40px" }}>
           <form onSubmit={onFormSubmit}>
@@ -122,7 +125,7 @@ const UploadSig = () => {
               variant="contained"
               type="submit"
             >
-              upload
+              {loading && <MDBSpinner />} upload
             </Button>
           </form>
           <img style={{ width: "150px" }} alt="" />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   Box,
@@ -13,7 +13,33 @@ import {
 } from "@mui/material";
 import "./login.css";
 import { ArrowBack } from "@mui/icons-material";
+import { forgotPassword } from "../redux/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { MDBSpinner } from "mdb-react-ui-kit";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
+  const dispatch = useDispatch();
+  const [staff, setStaff] = useState("");
+  const [securityQuestion, setSecurityQuestion] = useState("");
+  const [answerSecurityQuestion, setAnswerSecurityQuestion] = useState("");
+  const { error, loading, user } = useSelector((state) => state.user);
+  const nav = useNavigate();
+  useEffect(() => {
+    error && toast.error(error);
+  }, [error]);
+  const handleForgotPassword = (e) => {
+    e.preventDefault();
+    dispatch(forgotPassword(values));
+  };
+  const values = {
+    staffno: staff,
+    secq: securityQuestion,
+    seca: answerSecurityQuestion,
+  };
+  useEffect(() => {
+    user && nav("/confirmaccount");
+  }, [user, nav]);
   return (
     <div className="login_container">
       <Box
@@ -72,6 +98,7 @@ const Login = () => {
             <TextField
               placeholder="STAFF NUMBER e.g AD/R/S.1234"
               sx={{ width: "750px", marginBottom: "12px" }}
+              onChange={(e) => setStaff(e.target.value)}
             />
             <Box sx={{ minWidth: 120, marginBottom: "10px" }}>
               <FormControl sx={{ width: "750px" }}>
@@ -81,26 +108,42 @@ const Login = () => {
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  label="Age"
+                  label="security question"
+                  onChange={(e) => setSecurityQuestion(e.target.value)}
                 >
-                  <MenuItem>Favouite color</MenuItem>
-                  <MenuItem>Favourite Food</MenuItem>
-                  <MenuItem>Favourite pet name</MenuItem>
-                  <MenuItem>Fathers middle name</MenuItem>
-                  <MenuItem>Mothers middle name</MenuItem>
+                  <MenuItem value="Favourite Color">Favouite Color</MenuItem>
+                  <MenuItem value="Favourite Food">Favourite Food</MenuItem>
+                  <MenuItem value="Favourite Pet Name ">
+                    Favourite Pet Name
+                  </MenuItem>
+                  <MenuItem value="Fathers Middle Name ">
+                    Fathers Middle Name
+                  </MenuItem>
+                  <MenuItem value="Mothers Middle Name ">
+                    Mothers Middle Name
+                  </MenuItem>
                 </Select>
               </FormControl>
             </Box>
             <TextField
               placeholder="Answer to the security question"
               sx={{ width: "750px" }}
+              onChange={(e) => setAnswerSecurityQuestion(e.target.value)}
             />
             <Button
               variant="contained"
+              disabled={
+                staff === "" ||
+                securityQuestion === "" ||
+                answerSecurityQuestion === ""
+                  ? true
+                  : false
+              }
               size="medium"
               sx={{ marginTop: "6px", background: "green", height: "45px" }}
+              onClick={handleForgotPassword}
             >
-              Confirm account
+              {loading && <MDBSpinner />} Confirm account
             </Button>
           </Box>
           <Box

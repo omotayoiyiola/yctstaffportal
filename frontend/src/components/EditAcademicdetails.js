@@ -8,6 +8,7 @@ import {
   IconButton,
 } from "@mui/material";
 import axios from "axios";
+import { MDBSpinner } from "mdb-react-ui-kit";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -27,13 +28,13 @@ const EditAcademicdetails = ({
 }) => {
   const dispatch = useDispatch();
   const [data, setData] = useState("");
-  const { user, updateStatus } = useSelector((state) => state.user);
+  const [loader, setLoader] = useState(false);
+  const { user, updateStatus, loading } = useSelector((state) => state.user);
   const values = {
     data: data || content,
     id: user.id,
     link: link,
   };
-  console.log(data);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (link === "editresearcharea") {
@@ -47,9 +48,9 @@ const EditAcademicdetails = ({
     }
   };
   const [file, setFile] = useState(null);
-  console.log(file);
   const onFormSubmit = (e) => {
     e.preventDefault();
+    setLoader(true);
     const formdata = new FormData();
     formdata.append("image", file);
     const config = {
@@ -57,12 +58,15 @@ const EditAcademicdetails = ({
         "content-type": "multipart/form-data",
       },
     };
-    const url = `http://backendyctstaff.omotayoiyiola.com:3000/uploadpublications/${user.id}`;
+    const url = `http://backendyctstaff.omotayoiyiola.com:3000/upload${last}/${user.id}`;
     axios
       .put(url, formdata, config)
       .then((res) => toast.success(res.data))
+      .then(() => setLoader(false))
+
       .catch((err) => {
         toast.error(err.response.data);
+        setLoader(false);
       });
   };
   const onInputChange = (e) => {
@@ -115,7 +119,7 @@ const EditAcademicdetails = ({
                 <Typography
                   sx={{
                     background: "green",
-                    width: "320px",
+                    width: "170px",
                     padding: "10px",
                     margin: "20px",
                     color: "white",
@@ -128,7 +132,7 @@ const EditAcademicdetails = ({
                 <Typography
                   sx={{
                     background: "red",
-                    width: "320px",
+                    width: "170px",
                     padding: "10px",
                     margin: "20px",
                     color: "white",
@@ -141,7 +145,7 @@ const EditAcademicdetails = ({
                 <Typography
                   sx={{
                     background: "blue",
-                    width: "320px",
+                    width: "170px",
                     padding: "10px",
                     margin: "20px",
                     color: "white",
@@ -154,7 +158,7 @@ const EditAcademicdetails = ({
                 <Typography
                   sx={{
                     background: "red",
-                    width: "320px",
+                    width: "170px",
                     padding: "10px",
                     margin: "20px",
                     color: "white",
@@ -167,7 +171,7 @@ const EditAcademicdetails = ({
                 <Typography
                   sx={{
                     background: "red",
-                    width: "320px",
+                    width: "190px",
                     padding: "10px",
                     margin: "20px",
                     color: "white",
@@ -183,7 +187,7 @@ const EditAcademicdetails = ({
                 onClick={handleSubmit}
                 type="submit"
               >
-                EDIT NOW
+                {loading && <MDBSpinner />} EDIT NOW
               </Button>
             </>
           ) : (
@@ -228,7 +232,7 @@ const EditAcademicdetails = ({
                 sx={{ margin: "8px", marginLeft: "40px", padding: "17px" }}
                 type="submit"
               >
-                SUBMIT {last}
+                {loader && <MDBSpinner />} SUBMIT {last}
               </Button>
             </form>
           </>

@@ -2,6 +2,7 @@ import { ArrowBack } from "@mui/icons-material";
 import { Box, Button, Card, TextField, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { MDBSpinner } from "mdb-react-ui-kit";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -9,10 +10,9 @@ import { userRequest } from "../api";
 
 const Uploadpass = () => {
   const [file, setFile] = useState(null);
-  const { user } = useSelector((state) => state.user);
+  const { user, loading } = useSelector((state) => state.user);
   const [profilePixs, setProfilePixs] = useState(null);
-
-  const { data, isLoading, isError } = useQuery(["stuff"], () => {
+  const { isError } = useQuery(["stuff"], () => {
     try {
       return userRequest
         .get(`/staffrecord/${user.id}`)
@@ -35,14 +35,12 @@ const Uploadpass = () => {
       .put(url, formdata, config)
       .then((res) => toast.success(res.data) && window.location.reload())
       .catch((err) => {
-        console.log(err);
         toast.error(err.response.data);
       });
   };
   const onInputChange = (e) => {
     setFile(e.target.files[0]);
   };
-  console.log(profilePixs);
   return (
     <Box
       sx={{
@@ -78,7 +76,11 @@ const Uploadpass = () => {
           <Typography sx={{ fontWeight: "bolder", fontSize: "1.3rem" }}>
             Passport uploaded already :
           </Typography>
-          <img style={{ height: "120px" }} src={profilePixs?.imgg} alt="" />
+          <img
+            style={{ width: "200px", height: "200px" }}
+            src={profilePixs?.imgg}
+            alt=""
+          />
         </Box>
         <form onSubmit={onFormSubmit}>
           <Button
@@ -105,7 +107,7 @@ const Uploadpass = () => {
             type="submit"
             disabled={file === null ? true : false}
           >
-            upload
+            {loading && <MDBSpinner />} upload
           </Button>
         </form>
       </Card>

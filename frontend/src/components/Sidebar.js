@@ -24,7 +24,6 @@ import {
   FilePresent,
 } from "@mui/icons-material";
 import {
-  Avatar,
   Box,
   Collapse,
   List,
@@ -158,10 +157,6 @@ const Sidebar = () => {
             id="nested-list-subheader"
             sx={{ bgcolor: "transparent", display: "flex" }}
           >
-            <Avatar
-              sx={{ marginTop: "10px" }}
-              src="https://images.pexels.com/photos/837358/pexels-photo-837358.jpeg?auto=compress&cs=tinysrgb&w=400"
-            />
             <Box
               sx={{ display: "flex", flexDirection: "column", margin: "10px" }}
             >

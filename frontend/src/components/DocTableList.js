@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { DataGrid } from "@mui/x-data-grid";
 import { useSelector } from "react-redux";
@@ -6,7 +6,10 @@ import { userRequest } from "../api";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "react-toastify";
-const DocTableList = () => {
+import { MDBSpinner } from "mdb-react-ui-kit";
+import fileDownload from "js-file-download";
+const DocTableList = ({ file }) => {
+  console.log(file);
   const { user } = useSelector((state) => state.user);
   const [userData, setUserData] = useState([]);
 
@@ -21,15 +24,30 @@ const DocTableList = () => {
     } catch (error) {
       isError(error);
     }
+    return data;
   });
   const rows = userData.map((list) => {
     return {
       id: list?.id,
       titl: list?.titl,
       dreg: list?.dreg,
+      lenk: list?.newlenk,
     };
   });
-  console.log(userData);
+  const downloadFile = async (e, lenk, id) => {
+    const pdfFile = lenk.slice(16);
+    console.log(lenk);
+    e.preventDefault();
+    var ext = lenk.split(".").pop();
+
+    axios({
+      url: `http://backendyctstaff.omotayoiyiola.com:3000/downloaddocfile/${id}`,
+      method: "GET",
+      responseType: "blob",
+    }).then((res) => {
+      fileDownload(res.data, `${pdfFile}.${ext}`);
+    });
+  };
   const handleClick = (id) => {
     const DeleteData = async () => {
       try {
@@ -44,11 +62,12 @@ const DocTableList = () => {
           return res.data;
         }
       } catch (error) {
-        console.log(error);
+        return error;
       }
     };
     DeleteData();
   };
+
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
     { field: "titl", headerName: "Title", width: 200 },
@@ -61,7 +80,11 @@ const DocTableList = () => {
       renderCell: (params) => {
         return (
           <Actions>
-            <DownloadBtn>Download File</DownloadBtn>
+            <DownloadBtn
+              onClick={(e) => downloadFile(e, params.row.lenk, params.row.id)}
+            >
+              Download File
+            </DownloadBtn>
             <DeleteBtn onClick={() => handleClick(params.row.id)}>
               Delete file
             </DeleteBtn>
@@ -72,7 +95,7 @@ const DocTableList = () => {
   ];
   return (
     <div style={{ height: 400, width: "100%" }}>
-      {userData.length === 0 ? (
+      {isLoading ? (
         <h2
           style={{
             justifyContent: "center",
@@ -81,7 +104,7 @@ const DocTableList = () => {
             margin: "auto",
           }}
         >
-          NO PUBLICATIONS YET
+          <MDBSpinner />
         </h2>
       ) : (
         <DataGrid

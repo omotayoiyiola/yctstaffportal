@@ -15,6 +15,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import TableList from "./TableList";
+import { MDBSpinner } from "mdb-react-ui-kit";
 const AcademicPublication = () => {
   const { user } = useSelector((state) => state.user);
   const [title, setTitle] = useState("");
@@ -24,11 +25,13 @@ const AcademicPublication = () => {
   const [publisher, setPublisher] = useState("");
   const [status, setStatus] = useState("");
   const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false);
   const onInputChange = (e) => {
     setFile(e.target.files[0]);
   };
   const onFormSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     let formdata = new FormData();
     formdata.append("image", file);
     formdata.append("titl", title);
@@ -39,9 +42,8 @@ const AcademicPublication = () => {
     formdata.append("priva", status);
     formdata.append("usid", user.id);
     formdata.append("staffid", user.staffno);
-    console.log(formdata);
     axios({
-      url: "http://backendyctstaff.omotayoiyiola.com:3000/singlepublication",
+      url: "http://backendyctstaff.omotayoiiola.com:3000/singlepublication",
       method: "POST",
       headers: {
         "content-type": "multipart/form-data",
@@ -50,8 +52,10 @@ const AcademicPublication = () => {
     })
       .then((res) => toast.success(res.data))
       .then(() => window.location.reload())
+      .then(() => setLoading(false))
       .catch((err) => {
-        toast.success("not uploaded");
+        toast.error("Publication not uploaded");
+        setLoading(false);
       });
   };
 
@@ -185,7 +189,7 @@ const AcademicPublication = () => {
               hidden
               type="file"
               name="image"
-              accept=".pdf,.docs"
+              accept=".pdf"
               onChange={onInputChange}
             />
           </Button>
@@ -209,7 +213,7 @@ const AcademicPublication = () => {
             type="submit"
             sx={{ margin: "20px" }}
           >
-            upload
+            {loading && <MDBSpinner />} upload
           </Button>
         </form>
       </Card>

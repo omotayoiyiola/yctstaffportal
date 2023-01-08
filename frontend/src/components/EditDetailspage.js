@@ -1,6 +1,7 @@
 import { ArrowBack } from "@mui/icons-material";
 import { Box, Typography, Card, TextField, Button } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { MDBSpinner } from "mdb-react-ui-kit";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   editchildren,
@@ -11,7 +12,7 @@ import {
 
 const EditDetailspage = ({ message, submessage, allowed, link }) => {
   const dispatch = useDispatch();
-  const { user, updateStatus } = useSelector((state) => state.user);
+  const { user, updateStatus, loading } = useSelector((state) => state.user);
   const [data, setData] = useState("");
   const values = {
     data: data || submessage,
@@ -83,7 +84,7 @@ const EditDetailspage = ({ message, submessage, allowed, link }) => {
           <Typography
             sx={{
               background: "green",
-              width: "320px",
+              width: "170px",
               padding: "10px",
               margin: "20px",
               color: "white",
@@ -96,7 +97,7 @@ const EditDetailspage = ({ message, submessage, allowed, link }) => {
           <Typography
             sx={{
               background: "red",
-              width: "320px",
+              width: "170px",
               padding: "10px",
               margin: "20px",
               color: "white",
@@ -109,7 +110,7 @@ const EditDetailspage = ({ message, submessage, allowed, link }) => {
           <Typography
             sx={{
               background: "blue",
-              width: "320px",
+              width: "170px",
               padding: "10px",
               margin: "20px",
               color: "white",
@@ -122,7 +123,7 @@ const EditDetailspage = ({ message, submessage, allowed, link }) => {
           <Typography
             sx={{
               background: "red",
-              width: "320px",
+              width: "170px",
               padding: "10px",
               margin: "20px",
               color: "white",
@@ -137,7 +138,7 @@ const EditDetailspage = ({ message, submessage, allowed, link }) => {
           variant="contained"
           sx={{ margin: "20px" }}
         >
-          Edit
+          {loading && <MDBSpinner />}Edit
         </Button>
       </Card>
     </Box>

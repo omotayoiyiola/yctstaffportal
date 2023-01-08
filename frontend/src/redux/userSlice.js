@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { toast } from "react-toastify";
 const initialState = {
   user: localStorage.getItem("user"),
   loading: false,
@@ -24,7 +23,25 @@ export const loginUser = createAsyncThunk(
       );
       return res.data[0];
     } catch (error) {
-      console.log(error);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+export const forgotPassword = createAsyncThunk(
+  "auth/forgotPassword",
+  async (values, { rejectWithValue }) => {
+    try {
+      const res = await axios.post(
+        `http://backendycttaff.omotayoiyiola.com:3000/confirmdetails`,
+        {
+          staffno: values.staffno,
+          secq: values.secq,
+          seca: values.seca,
+        }
+      );
+      console.log(res);
+      return res.data[0];
+    } catch (error) {
       return rejectWithValue(error.response.data);
     }
   }
@@ -33,7 +50,6 @@ export const loginUser = createAsyncThunk(
 export const resetUserPassword = createAsyncThunk(
   "auth/resetUserPassword",
   async (values, { rejectWithValue }) => {
-    console.log(values);
     try {
       const res = await axios.put(
         `http://backendyctstaff.omotayoiyiola.com:3000/resetpassword/${values.id}`,
@@ -45,18 +61,32 @@ export const resetUserPassword = createAsyncThunk(
           securityquestion: values.securityquestion,
         }
       );
-      console.log(res.data);
       return res.data;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error.response.data);
     }
   }
 );
+
+export const resetPassword = createAsyncThunk(
+  "auth/resetPassword",
+  async (values, { rejectWithValue }) => {
+    console.log(values);
+    try {
+      const res = await axios.put(
+        `http://backendyctstaff.omotayoiyiola.com:3000/changepassword/${values.id}`,
+        values
+      );
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const uploadPassport = createAsyncThunk(
   "auth/uploadPassport",
   async (values, { rejectWithValue }) => {
-    console.log(values.id);
     try {
       const res = axios({
         method: "put",
@@ -66,15 +96,14 @@ export const uploadPassport = createAsyncThunk(
       })
         .then(function (response) {
           //handle success
-          console.log(response);
+          return response;
         })
         .catch(function (response) {
           //handle error
-          console.log(response);
+          return response;
         });
       return res.data;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error.response.data);
     }
   }
@@ -91,15 +120,14 @@ export const uploadSignature = createAsyncThunk(
       })
         .then(function (response) {
           //handle success
-          console.log(response);
+          return response;
         })
         .catch(function (response) {
           //handle error
-          console.log(response);
+          return response;
         });
       return res.data;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error.response.data);
     }
   }
@@ -107,7 +135,6 @@ export const uploadSignature = createAsyncThunk(
 export const updateBioData = createAsyncThunk(
   "auth/updateBioData",
   async (values, { rejectWithValue }) => {
-    console.log(values);
     try {
       const res = await axios.put(
         `http://backendyctstaff.omotayoiyiola.com:3000/editbiodata/${values.id}`,
@@ -131,7 +158,6 @@ export const updateBioData = createAsyncThunk(
 export const editnextofkin = createAsyncThunk(
   "auth/editnextofkin",
   async (values, { rejectWithValue }) => {
-    console.log(values);
     try {
       const res = await axios.put(
         `http://backendyctstaff.omotayoiyiola.com:3000/${values.link}/${values.id}`,
@@ -164,7 +190,6 @@ export const editprofessional = createAsyncThunk(
 export const editchildren = createAsyncThunk(
   "auth/editchildren",
   async (values, { rejectWithValue }) => {
-    console.log(values);
     try {
       const res = await axios.put(
         `http://backendyctstaff.omotayoiyiola.com:3000/${values.link}/${values.id}`,
@@ -182,7 +207,6 @@ export const editchildren = createAsyncThunk(
 export const editspouse = createAsyncThunk(
   "auth/editspouse",
   async (values, { rejectWithValue }) => {
-    console.log(values);
     try {
       const res = await axios.put(
         `http://backendyctstaff.omotayoiyiola.com:3000/${values.link}/${values.id}`,
@@ -234,7 +258,6 @@ export const researchgate = createAsyncThunk(
 export const editSeminars = createAsyncThunk(
   "auth/editSeminars",
   async (values, { rejectWithValue }) => {
-    console.log(values);
     try {
       const res = await axios.put(
         `http://backendyctstaff.omotayoiyiola.com:3000/${values.link}/${values.id}`,
@@ -297,6 +320,34 @@ const userSlice = createSlice({
       return { ...state, loading: false, error: false, status: action.payload };
     });
     builder.addCase(resetUserPassword.rejected, (state, action) => {
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      };
+    });
+    builder.addCase(forgotPassword.pending, (state, action) => {
+      return { ...state, loading: true, error: "" };
+    });
+    builder.addCase(forgotPassword.fulfilled, (state, action) => {
+      return { ...state, loading: false, error: false, user: action.payload };
+    });
+    builder.addCase(forgotPassword.rejected, (state, action) => {
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      };
+    });
+    builder.addCase(resetPassword.pending, (state, action) => {
+      return { ...state, error: false, loading: true };
+    });
+    builder.addCase(resetPassword.fulfilled, (state, action) => {
+      state.status = action.payload;
+      state.loading = false;
+      state.error = false;
+    });
+    builder.addCase(resetPassword.rejected, (state, action) => {
       return {
         ...state,
         error: action.payload,
