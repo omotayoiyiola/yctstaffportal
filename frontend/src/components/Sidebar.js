@@ -7,20 +7,12 @@ import {
   Create,
   Publish,
   ExpandMore,
-  MeetingRoom,
   CoPresent,
   Settings,
   ArrowForwardIos,
   MenuBook,
   LibraryBooks,
   FileOpen,
-  ModeEdit,
-  HomeWork,
-  Groups2,
-  Collections,
-  ContactsOutlined,
-  HelpCenter,
-  HelpCenterOutlined,
   FilePresent,
 } from "@mui/icons-material";
 import {
@@ -39,7 +31,7 @@ import "./sidebar.css";
 const Sidebar = () => {
   const drawerMenuItemData = [
     {
-      title: "SETTINGS",
+      title: "Settings",
       submenu: [
         {
           title: "Change Password",
@@ -50,7 +42,7 @@ const Sidebar = () => {
       icon: Settings,
     },
     {
-      title: "PROFILE",
+      title: "Profile",
       submenu: [
         { title: "View profile", icon: Preview, link: "viewprofile" },
         { title: "Upload passport", icon: CloudUpload, link: "uploadPass" },
@@ -73,7 +65,7 @@ const Sidebar = () => {
       icon: Person,
     },
     {
-      title: "ACADEMIC STAFF",
+      title: "Academic Staff",
       submenu: [
         { title: "Research areas", icon: MenuBook, link: "researchareas" },
         {
@@ -93,34 +85,9 @@ const Sidebar = () => {
       icon: Person,
     },
     {
-      title: "OFFICE EXTENSION",
-      submenu: [
-        { title: "My extension", icon: MeetingRoom, link: "myextension" },
-      ],
-      icon: MeetingRoom,
-    },
-    {
-      title: "FILE MANAGEMENT",
+      title: "File management",
       submenu: [{ title: "My files", icon: FilePresent, link: "docmgt" }],
       icon: FileOpen,
-    },
-    {
-      title: "REGISTRY",
-      submenu: [{ title: "Apply for leave", icon: ModeEdit }],
-      icon: HomeWork,
-    },
-    {
-      title: "SOCIAL HUB",
-      submenu: [
-        { title: "Picture gallery", icon: Collections },
-        { title: "Social media addresses", icon: ContactsOutlined },
-      ],
-      icon: Groups2,
-    },
-    {
-      title: "SUPPORT",
-      submenu: [{ title: " Contact ICT", icon: HelpCenterOutlined }],
-      icon: HelpCenter,
     },
   ];
   const [selectedIndex, setSelectedIndex] = useState("");
@@ -136,10 +103,10 @@ const Sidebar = () => {
     <Box
       position="sticky"
       sx={{
-        display: { xs: "none", sm: "none", lg: "block" },
+        display: { xs: "none", sm: "none", lg: "block", md: "block" },
         backgroundColor: "green",
         height: "280vh",
-        flex: 1,
+        flex: 0.65,
       }}
     >
       <List
@@ -163,7 +130,13 @@ const Sidebar = () => {
               <Typography sx={{ color: "white", fontWeight: "bolder" }}>
                 IYIOLA OMOTAYO
               </Typography>
-              <Typography sx={{ color: "white", fontWeight: "bold" }}>
+              <Typography
+                sx={{
+                  color: "#ffcfbe",
+                  fontWeight: "bold",
+                  fontSize: "0.9rem",
+                }}
+              >
                 PRINCIPAL PROGRAMME ANALYST
               </Typography>
             </Box>
@@ -211,6 +184,7 @@ const Sidebar = () => {
                             cursor: "pointer",
                             display: "flex",
                             justifyContent: "flex-start",
+                            marginLeft: "-10px",
                           }}
                         />
                       </ListItem>

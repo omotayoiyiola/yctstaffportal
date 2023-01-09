@@ -53,11 +53,11 @@ const EditDetailspage = ({ message, submessage, allowed, link }) => {
       </Button>
       <Card
         sx={{
-          width: "1050px",
+          width: { lg: "850px", md: "550px", sm: "550px", xs: "450px" },
           height: "auto",
           position: "absolute",
-          top: "10%",
-          left: "0.8%",
+          top: { lg: "10%", sm: "20vh", xs: "15vh" },
+          left: { lg: "0.8%", md: "10%", sm: "11%", xs: "6%" },
         }}
       >
         <Box sx={{ padding: "15px", background: "green", color: "white" }}>
@@ -77,7 +77,7 @@ const EditDetailspage = ({ message, submessage, allowed, link }) => {
                 height: "70px",
               },
             }}
-            sx={{ width: "1005px" }}
+            fullWidth
           />
         </Box>
         {updateStatus === "Update successfull" && (

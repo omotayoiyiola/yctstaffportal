@@ -8,8 +8,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { MDBSpinner } from "mdb-react-ui-kit";
 import fileDownload from "js-file-download";
-const DocTableList = ({ file }) => {
-  console.log(file);
+const DocTableList = () => {
   const { user } = useSelector((state) => state.user);
   const [userData, setUserData] = useState([]);
 
@@ -36,7 +35,6 @@ const DocTableList = ({ file }) => {
   });
   const downloadFile = async (e, lenk, id) => {
     const pdfFile = lenk.slice(16);
-    console.log(lenk);
     e.preventDefault();
     var ext = lenk.split(".").pop();
 

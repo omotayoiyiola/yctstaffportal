@@ -39,7 +39,6 @@ export const forgotPassword = createAsyncThunk(
           seca: values.seca,
         }
       );
-      console.log(res);
       return res.data[0];
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -71,7 +70,6 @@ export const resetUserPassword = createAsyncThunk(
 export const resetPassword = createAsyncThunk(
   "auth/resetPassword",
   async (values, { rejectWithValue }) => {
-    console.log(values);
     try {
       const res = await axios.put(
         `http://backendyctstaff.omotayoiyiola.com:3000/changepassword/${values.id}`,

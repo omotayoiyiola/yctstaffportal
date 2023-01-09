@@ -59,11 +59,11 @@ const Uploadpass = () => {
       </Button>
       <Card
         sx={{
-          width: "950px",
-          height: "height",
+          width: { lg: "800px", md: "600px", sm: "550px", xs: "500px" },
+          height: "auto",
           position: "absolute",
-          top: "10%",
-          left: "5%",
+          top: { xs: "20vh", md: "10%" },
+          left: { sm: "12%", md: "5%", xs: "2%" },
         }}
       >
         <Box sx={{ textAlign: "center", background: "green", color: "white" }}>
@@ -106,6 +106,7 @@ const Uploadpass = () => {
             variant="contained"
             type="submit"
             disabled={file === null ? true : false}
+            sx={{ margin: "10px" }}
           >
             {loading && <MDBSpinner />} upload
           </Button>

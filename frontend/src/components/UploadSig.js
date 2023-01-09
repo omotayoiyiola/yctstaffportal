@@ -68,11 +68,11 @@ const UploadSig = () => {
       </Button>
       <Card
         sx={{
-          width: "950px",
-          height: "350px",
+          width: { lg: "800px", md: "600px", sm: "550px", xs: "500px" },
+          height: "auto",
           position: "absolute",
-          top: "10%",
-          left: "5%",
+          top: { xs: "20vh", md: "10%" },
+          left: { md: "5%", sm: "4%", xs: "2%" },
         }}
       >
         <Box sx={{ textAlign: "center", background: "green", color: "white" }}>

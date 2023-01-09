@@ -90,11 +90,11 @@ const EditAcademicdetails = ({
       </Button>
       <Card
         sx={{
-          width: "1050px",
+          width: { lg: "850px", md: "550px", sm: "550px", xs: "450px" },
           height: "auto",
           position: "absolute",
-          top: "10%",
-          left: "0.8%",
+          top: { lg: "10%", sm: "20vh", xs: "15vh" },
+          left: { lg: "0.8%", md: "10%", sm: "11%", xs: "6%" },
         }}
       >
         <Box sx={{ padding: "15px", background: "green", color: "white" }}>
@@ -112,7 +112,7 @@ const EditAcademicdetails = ({
                   },
                 }}
                 placeholder={content}
-                sx={{ width: "1005px" }}
+                fullWidth
                 onChange={(e) => setData(e.target.value)}
               />
               {updateStatus === "Update successfull" && (
@@ -199,7 +199,7 @@ const EditAcademicdetails = ({
             <form onSubmit={onFormSubmit}>
               <Box sx={{ margin: "40px", display: "flex" }}>
                 <Button
-                  sx={{ width: "100%" }}
+                  sx={{ width: { lg: "100%", xs: "40%" } }}
                   variant="contained"
                   component="label"
                 >
@@ -221,7 +221,7 @@ const EditAcademicdetails = ({
                   <TextField
                     placeholder={file?.name}
                     disabled
-                    sx={{ width: "650px" }}
+                    sx={{ width: { lg: "550px", xs: "200px", md: "250px" } }}
                     onChange={(e) => setData(e.target.value)}
                   />
                 </IconButton>

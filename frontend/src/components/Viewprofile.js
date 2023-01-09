@@ -65,11 +65,11 @@ const Viewprofile = () => {
         <>
           <Card
             sx={{
-              width: "950px",
+              width: { lg: "800px", md: "620px" },
               height: "height",
               position: "absolute",
-              top: "10%",
-              left: "5%",
+              top: "7%",
+              left: { lg: "5%", md: "4%" },
             }}
           >
             <Box sx={{ display: "flex", margin: "18px" }}>
@@ -94,7 +94,6 @@ const Viewprofile = () => {
                 Staff passport :
               </Typography>
               <img
-                style={{ height: "100px" }}
                 src={data?.imgg}
                 alt=""
                 style={{ width: "200px", height: "200px" }}
@@ -338,7 +337,7 @@ const Viewprofile = () => {
                 variant="contained"
                 onClick={handleClick}
                 sx={{
-                  width: "22%",
+                  width: "100%",
                   background: "#2f4f73",
                   fontSize: "15px",
                   padding: "18px",

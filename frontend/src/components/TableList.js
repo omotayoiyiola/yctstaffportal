@@ -84,9 +84,9 @@ const TableList = () => {
   };
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
-    { field: "titl", headerName: "Title", width: 200 },
-    { field: "autho", headerName: " Name of Author", width: 250 },
-    { field: "yea", headerName: "Year of Publication", width: 200 },
+    { field: "titl", headerName: "Title", width: 100 },
+    { field: "autho", headerName: " Name of Author", width: 150 },
+    { field: "yea", headerName: "Year of Publication", width: 100 },
     {
       field: "actions",
       headerName: "Actions",
@@ -124,7 +124,7 @@ const TableList = () => {
     p: 4,
   };
   return (
-    <div style={{ height: 400, width: "100%" }}>
+    <div style={{ height: 400, width: "70vw" }}>
       {isLoading ? (
         <h2
           style={{
@@ -140,7 +140,7 @@ const TableList = () => {
         <DataGrid
           rows={rows}
           columns={columns}
-          pageSize={5}
+          pageSize={1}
           rowsPerPageOptions={[5]}
           disableSelectionClick
         />

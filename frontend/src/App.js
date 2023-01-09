@@ -22,6 +22,8 @@ import AcademicPublicationn from "./Pages/AcademicPublication";
 import Header from "./components/Header";
 import NotFound from "./components/NotFound/NotFound";
 import ConfirmAccount from "./Pages/ConfirmAccount";
+import ProtectedRoute from "./Pages/ProtectedRoutes";
+import Error from "./components/Error";
 
 function App() {
   const client = new QueryClient();
@@ -47,108 +49,120 @@ function App() {
         <ToastContainer />
         <Header pix={userProfile?.imgg} />
         <Routes>
-          <Route path="/login" element={!user ? <Login /> : <Dashboard />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
-          <Route path="/dashboard" element={user ? <Dashboard /> : <Login />} />
           <Route
             path="/resetpass"
-            element={user ? <ResetPassword /> : <Login />}
+            element={
+              <ProtectedRoute>
+                <ResetPassword />
+              </ProtectedRoute>
+            }
           />
           <Route path="/confirmaccount" element={<ConfirmAccount />} />
-          <Route
-            path="/viewprofile"
-            element={user ? <ViewProfile /> : <Login />}
-          />
+          <Route path="/viewprofile" element={<ViewProfile />} />
           <Route
             path="/uploadPass"
-            element={user ? <UploadPass /> : <Login />}
+            element={
+              <ProtectedRoute>
+                <UploadPass />
+              </ProtectedRoute>
+            }
           />
           <Route
             path="/uploadSignature"
-            element={user ? <UploadSigature /> : <Login />}
+            element={
+              <ProtectedRoute>
+                <UploadSigature />
+              </ProtectedRoute>
+            }
           />
           <Route
             path="/editbiodata"
-            element={user ? <EditBioData /> : <Login />}
+            element={
+              <ProtectedRoute>
+                <EditBioData />
+              </ProtectedRoute>
+            }
           />
           <Route
             path="/editAcadqualification"
             element={
-              user ? (
+              <ProtectedRoute>
+                (
                 <EditDetailsPage
                   allowed="true"
                   message="Academic qualification cannot be edited. Kindly visit the registry if information here is not up-to-date"
                   submessage={userProfile?.qual}
                 />
-              ) : (
-                <Login />
-              )
+                )
+              </ProtectedRoute>
             }
           />
           <Route
             path="/editprofqualification"
             element={
-              user ? (
+              <ProtectedRoute>
+                (
                 <EditDetailsPage
                   allowed="false"
                   message="Edit professional qualification"
                   submessage={userProfile?.qualprof}
                   link="editprofessional"
                 />
-              ) : (
-                <Login />
-              )
+                )
+              </ProtectedRoute>
             }
           />
           <Route
             path="/editnextofkin"
             element={
-              user ? (
+              <ProtectedRoute>
+                (
                 <EditDetailsPage
                   allowed="false"
                   message="Name, address, phone number and relationship with Next-of-Kin"
                   submessage={userProfile?.nextkin}
                   link="editnextofkin"
                 />
-              ) : (
-                <Login />
-              )
+                )
+              </ProtectedRoute>
             }
           />
           <Route
             path="/editChildren"
             element={
-              user ? (
+              <ProtectedRoute>
+                (
                 <EditDetailsPage
                   allowed="false"
                   message="Full name(s) and date of birth of Child(ren). Maximum of 4 children is alowed"
                   submessage={userProfile?.chd}
                   link="editchildren"
                 />
-              ) : (
-                <Login />
-              )
+                )
+              </ProtectedRoute>
             }
           />
           <Route
             path="/editSpouse"
             element={
-              user ? (
+              <ProtectedRoute>
+                (
                 <EditDetailsPage
                   allowed="false"
                   message="Full name, email address, phone number and other necessary details of spouse."
                   submessage={userProfile?.spous}
                   link="editspouse"
                 />
-              ) : (
-                <Login />
-              )
+                )
+              </ProtectedRoute>
             }
           />
           <Route
             path="researchareas"
             element={
-              user ? (
+              <ProtectedRoute>
+                (
                 <AcademicEdits
                   message="List your areas of research"
                   content={userProfile?.resach}
@@ -156,59 +170,61 @@ function App() {
                   button="false"
                   link="editresearcharea"
                 />
-              ) : (
-                <Login />
-              )
+                )
+              </ProtectedRoute>
             }
           />
           <Route
             path="seminars"
             element={
-              <AcademicEdits
-                message="List the Seminars/Conferences attended"
-                textarea="true"
-                content={userProfile?.seminars}
-                button="false"
-                link="editseminars"
-              />
+              <ProtectedRoute>
+                <AcademicEdits
+                  message="List the Seminars/Conferences attended"
+                  textarea="true"
+                  content={userProfile?.seminars}
+                  button="false"
+                  link="editseminars"
+                />
+              </ProtectedRoute>
             }
           />
           <Route
             path="mypub"
             textarea="false"
             element={
-              user ? (
+              <ProtectedRoute>
+                (
                 <AcademicEdits
                   message="Upload Publications"
                   content="All Publications in one PDF"
                   button="true"
                   last="publication"
                 />
-              ) : (
-                <Login />
-              )
+                )
+              </ProtectedRoute>
             }
           />
           <Route
             path="mycv"
             textarea="false"
             element={
-              user ? (
+              <ProtectedRoute>
+                (
                 <AcademicEdits
                   message="Upload CV"
                   content="View uploaded CV"
                   button="true"
                   last="cv"
                 />
-              ) : (
-                <Login />
-              )
+                )
+              </ProtectedRoute>
             }
           />
           <Route
             path="researchgate"
             element={
-              user ? (
+              <ProtectedRoute>
+                (
                 <AcademicEdits
                   message="Researchgate profile URL (link)"
                   content={userProfile?.rgate}
@@ -216,36 +232,52 @@ function App() {
                   button="false"
                   link="researchgate"
                 />
-              ) : (
-                <Login />
-              )
+                )
+              </ProtectedRoute>
             }
           />
           <Route
             path="publications"
             element={
-              user ? (
+              <ProtectedRoute>
+                (
                 <AcademicPublicationn
                   message="Researchgate profile URL (link)"
                   content="repourl"
                   textarea="true"
                   button="false"
                 />
-              ) : (
-                <Login />
-              )
+                )
+              </ProtectedRoute>
             }
           />
-          {/* <Route path="test" element={<Test />} /> */}
           <Route
             path="myextension"
-            element={user ? <Myextension /> : <Login />}
+            element={
+              <ProtectedRoute>
+                <Myextension />
+              </ProtectedRoute>
+            }
           />
           <Route
             path="docmgt"
-            element={user ? <FileManagement /> : <Login />}
+            element={
+              <ProtectedRoute>
+                <FileManagement />
+              </ProtectedRoute>
+            }
           />
-          <Route path="/" element={user ? <Dashboard /> : <Login />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />{" "}
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/error" element={<Error />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </QueryClientProvider>

@@ -31,7 +31,6 @@ const ResetPass = () => {
     dispatch(resetUserPassword(questions));
   };
 
-  console.log(questions);
   return (
     <Box
       sx={{
@@ -50,10 +49,10 @@ const ResetPass = () => {
       </Button>
       <Card
         sx={{
-          width: "950px",
+          width: { lg: "850px", md: "620px", xs: "500px" },
           height: "auto",
           position: "absolute",
-          top: "10%",
+          top: { xs: "120%", md: "5%" },
           left: "5%",
         }}
       >

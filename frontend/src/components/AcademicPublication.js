@@ -43,7 +43,7 @@ const AcademicPublication = () => {
     formdata.append("usid", user.id);
     formdata.append("staffid", user.staffno);
     axios({
-      url: "http://backendyctstaff.omotayoiiola.com:3000/singlepublication",
+      url: "https://backendyctstaff.omotayoiiola.com:3000/singlepublication",
       method: "POST",
       headers: {
         "content-type": "multipart/form-data",
@@ -77,10 +77,10 @@ const AcademicPublication = () => {
       </Button>
       <Card
         sx={{
-          width: "950px",
-          height: "height",
+          width: { lg: "850px", md: "620px", xs: "500px" },
+          height: "auto",
           position: "absolute",
-          top: "10%",
+          top: { xs: "120%", md: "5%" },
           left: "5%",
         }}
       >
@@ -88,7 +88,7 @@ const AcademicPublication = () => {
           <Box sx={{ margin: "20px" }}>
             <Typography sx={{ fontWeight: "bolder" }}>Title</Typography>
             <TextField
-              sx={{ width: "890px" }}
+              fullWidth
               required
               onChange={(e) => setTitle(e.target.value)}
             />
@@ -98,7 +98,7 @@ const AcademicPublication = () => {
               Name of Author(s) separated by comma. (Must include your name)
             </Typography>
             <TextField
-              sx={{ width: "890px" }}
+              fullWidth
               onChange={(e) => setAuthor(e.target.value)}
               required
             />
@@ -108,7 +108,7 @@ const AcademicPublication = () => {
             <Typography sx={{ fontWeight: "bolder" }}>
               Year of Publication
             </Typography>
-            <FormControl sx={{ width: "890px" }}>
+            <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">
                 Year of Publication
               </InputLabel>
@@ -150,7 +150,7 @@ const AcademicPublication = () => {
           <Box sx={{ margin: "20px" }}>
             <Typography sx={{ fontWeight: "bolder" }}>Publisher</Typography>
             <TextField
-              sx={{ width: "890px" }}
+              fullWidth
               onChange={(e) => setPublisher(e.target.value)}
               required
             />
@@ -158,14 +158,14 @@ const AcademicPublication = () => {
           <Box sx={{ margin: "20px" }}>
             <Typography sx={{ fontWeight: "bolder" }}>Abstract</Typography>
             <TextField
-              sx={{ width: "890px" }}
+              fullWidth
               onChange={(e) => setAbstract(e.target.value)}
               required
             />
           </Box>
           <Box sx={{ margin: "20px" }}>
             <Typography sx={{ fontWeight: "bolder" }}>Status</Typography>
-            <FormControl sx={{ width: "890px" }}>
+            <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Status</InputLabel>
               <Select
                 required
@@ -219,11 +219,11 @@ const AcademicPublication = () => {
       </Card>
       <Card
         sx={{
-          width: "1050px",
+          width: { lg: "1000px", xs: "950px" },
           height: "auto",
           position: "absolute",
-          top: "50%",
-          left: "0.8%",
+          top: { md: "50%", xs: "150vh", sm: "150vh", lg: "130vh" },
+          left: { xs: "5%", md: "1%" },
         }}
       >
         <TableList />

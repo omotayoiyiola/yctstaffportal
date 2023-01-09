@@ -55,11 +55,11 @@ const FileMangement = () => {
     >
       <Card
         sx={{
-          width: "1050px",
+          width: { lg: "800px", md: "620px", xs: "500px" },
           height: "auto",
           position: "absolute",
-          top: "10%",
-          left: "0.8%",
+          top: { xs: "10vh", md: "5%" },
+          left: { xs: "10%" },
         }}
       >
         <Box sx={{ padding: "15px", background: "green", color: "white" }}>
@@ -77,7 +77,7 @@ const FileMangement = () => {
                 },
               }}
               onChange={(e) => setTitle(e.target.value)}
-              sx={{ width: "1005px" }}
+              fullWidth
             />
             <Box sx={{ display: "flex", marginTop: "10px" }}>
               <Button
@@ -99,11 +99,7 @@ const FileMangement = () => {
                   accept=".doc,.pdf,.png,.jpeg,.jpg"
                 />
               </Button>
-              <TextField
-                disabled
-                sx={{ width: "550px" }}
-                placeholder={file?.name}
-              />
+              <TextField disabled fullWidth placeholder={file?.name} />
             </Box>
           </Box>
           <Button
@@ -123,11 +119,11 @@ const FileMangement = () => {
       </Card>
       <Card
         sx={{
-          width: "1050px",
+          width: { lg: "1000px", xs: "950px" },
           height: "auto",
           position: "absolute",
-          top: "30%",
-          left: "0.8%",
+          top: { md: "70vh", xs: "70vh", sm: "70vh", lg: "70vh" },
+          left: { xs: "10%", md: "1%" },
         }}
       >
         <DocTableList />

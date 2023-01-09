@@ -16,7 +16,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateBioData } from "../redux/userSlice";
 import { MDBSpinner } from "mdb-react-ui-kit";
 import { userRequest } from "../api";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Editbiodata = () => {
@@ -30,7 +29,6 @@ const Editbiodata = () => {
   const [officePhoneNo, setOfficePhoneNo] = useState("");
   const { user, updateStatus } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const nav = useNavigate();
   const { data, isLoading, isError } = useQuery(["stuff"], () => {
     try {
       return userRequest
@@ -93,11 +91,11 @@ const Editbiodata = () => {
         <>
           <Card
             sx={{
-              width: "950px",
+              width: { lg: "800px", md: "650px", sm: "580px", xs: "500px" },
               height: "auto",
               position: "absolute",
-              top: "10%",
-              left: "5%",
+              top: { md: "5%", sm: "15vh", xs: "14vh" },
+              left: { md: "2%", sm: "14%", xs: "6%" },
             }}
           >
             <Box sx={{ padding: "15px", background: "green", color: "white" }}>
@@ -111,7 +109,7 @@ const Editbiodata = () => {
               </Typography>
               <TextField
                 placeholder={data?.titl}
-                sx={{ width: "890px" }}
+                fullWidth
                 onChange={(e) => setTitle(e.target.value)}
               />
             </Box>
@@ -119,7 +117,7 @@ const Editbiodata = () => {
               <Typography sx={{ fontWeight: "bolder" }}>
                 **Gender (MALE)
               </Typography>
-              <FormControl sx={{ width: "890px" }}>
+              <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">
                   {data?.sexx}
                 </InputLabel>
@@ -139,14 +137,14 @@ const Editbiodata = () => {
               <TextField
                 disabled
                 placeholder="CENTRE FOR INFORMATION TECHNOLOGY AND MANAGEMENT"
-                sx={{ width: "890px" }}
+                fullWidth
               />
             </Box>
             <Box sx={{ minWidth: 120, margin: "20px" }}>
               <Typography sx={{ fontWeight: "bolder" }}>
                 **Staff category (NON-TEACHING (SENIOR))
               </Typography>
-              <FormControl sx={{ width: "890px" }}>
+              <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">
                   {data?.categ}
                 </InputLabel>
@@ -173,7 +171,7 @@ const Editbiodata = () => {
               <TextField
                 type="number"
                 placeholder={data?.fon}
-                sx={{ width: "890px" }}
+                fullWidth
                 onChange={(e) => setPhoneNo(e.target.value)}
               />
             </Box>
@@ -184,7 +182,7 @@ const Editbiodata = () => {
               <TextField
                 type="number"
                 placeholder={data?.fonoffi}
-                sx={{ width: "890px" }}
+                fullWidth
                 onChange={(e) => setOfficePhoneNo(e.target.value)}
               />
             </Box>
@@ -194,7 +192,7 @@ const Editbiodata = () => {
               </Typography>
               <TextField
                 placeholder={data?.emaloffi}
-                sx={{ width: "890px" }}
+                fullWidth
                 onChange={(e) => setOfficeEmail(e.target.value)}
               />
             </Box>
@@ -204,7 +202,7 @@ const Editbiodata = () => {
               </Typography>
               <TextField
                 placeholder={data?.emal}
-                sx={{ width: "890px" }}
+                fullWidth
                 onChange={(e) => setPersonalEmail(e.target.value)}
               />
             </Box>
@@ -214,7 +212,7 @@ const Editbiodata = () => {
               </Typography>
               <TextField
                 placeholder={data?.addy}
-                sx={{ width: "890px" }}
+                fullWidth
                 onChange={(e) => setHomeAddress(e.target.value)}
               />
             </Box>

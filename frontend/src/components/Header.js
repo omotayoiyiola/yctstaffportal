@@ -35,8 +35,12 @@ const Header = ({ pix }) => {
       <AppBar position="fixed" sx={{ background: "green", height: "60px" }}>
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
           <Box>
-            <Link to="/">
-              <img src="https://staff.yabatech.edu.ng/toplogo.jpg" alt="" />
+            <Link to="/dashboard">
+              <img
+                src="https://staff.yabatech.edu.ng/toplogo.jpg"
+                alt=""
+                style={{ width: "181px", height: "32px" }}
+              />
             </Link>
           </Box>
           <Box sx={{ color: "pointer", display: "flex" }}>

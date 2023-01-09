@@ -15,11 +15,11 @@ const StaffHome = () => {
       <Card
         sx={{
           height: "150px",
-          width: "950px",
+          width: { lg: "820px", md: "550px", sm: "550px", xs: "200px" },
           alignItems: "center",
           position: "absolute",
-          top: "10%",
-          left: "5%",
+          top: { md: "10%", sm: "30vh", xs: "30vh" },
+          left: { md: "3vw", sm: "5vw", xs: "20vw" },
         }}
       >
         <Typography
@@ -29,6 +29,7 @@ const StaffHome = () => {
             alignItems: "center",
             textAlign: "center",
             marginTop: "60px",
+            fontSize: { xs: "1.3rem", md: "2.8rem" },
           }}
         >
           {user?.fulln}
