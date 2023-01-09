@@ -46,6 +46,7 @@ const Error = () => {
           >
             Please enter the login page
           </Button>
+          <button onClick={() => window.location.reload(false)}>Click to reload!</button>
         </Box>
       </Card>
     </Box>

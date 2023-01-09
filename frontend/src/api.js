@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export const userRequest = axios.create({
-  baseURL: "https://backendyctstaff.omotayoiyiola.com:3000",
+  baseURL: "http://backendyctstaff.omotayoiyiola.com:3000",
 });
